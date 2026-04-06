@@ -3,7 +3,7 @@
 INTEGRANTES DA EQUIPE:
 - Alexsandro Nathaniel Guerra Magalhães
 - Rafael Monte Tavares
-- Sabryna Vasconcelos
+- Evelyn Sabryna Noronha Vasconcelos
 
 Este projeto foi desenvolvido para apoiar os seguintes Objetivos de Desenvolvimento Sustentável:
 * ODS 1 e 2: Auxílio direto a pessoas em vulnerabilidade através da doação de itens básicos e alimentos.
