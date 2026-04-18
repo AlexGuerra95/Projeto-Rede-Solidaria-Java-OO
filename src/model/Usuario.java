@@ -9,6 +9,7 @@ public class Usuario {
     private String nome;
     private String telefone;
     private String email;
+    private String endereco;
 
     // Construtor principal
     public Usuario(int id, String nome, String telefone, String email, String endereco) {
