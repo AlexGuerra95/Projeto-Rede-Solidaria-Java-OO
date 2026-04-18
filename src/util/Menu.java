@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import model.Doador;
 import model.Beneficiario;
+import model.ItemDoacao;
 
 
 public class Menu {
@@ -11,6 +12,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Doador> listaDoadores = new ArrayList<>();
         ArrayList<Beneficiario> listaBeneficiarios = new ArrayList<>();
+        ArrayList<ItemDoacao> listaItem = new ArrayList<>();
         
         
         int opcao = -1;
@@ -73,6 +75,38 @@ public class Menu {
                         
                         System.out.println("\n Beneficiario cadastrado com sucesso!");
                         break;      
+
+
+                        case 3:               
+                       
+                        System.out.print("Informe nome do item: ");
+                        String nome = scanner.nextLine();
+                        
+                        System.out.print("Informe a categoria: ");
+                        String categoria = scanner.nextLine();
+                        
+                        System.out.print("Informe a descrição do item: ");
+                        String descricao = scanner.nextLine();
+                        
+                        System.out.print("Informe a quantidade: ");
+                        Int quantidade = scanner.nextLine();
+                        
+                        System.out.print("Informe o estado de conservação: ");
+                        String estado = scanner.nextLine();
+
+                        System.out.print("Informe a data do cadastro: ");
+                        Date data = scanner.nextLine();
+
+                        System.out.print("Informe o status do produto: ");
+                        String status  = scanner.nextLine();
+
+
+                        ItemDoacao novoItem = new itemDoacao(contadorId++, nome, categoria, descricao, quantidade, estado, data, status);
+                        listaItem.add(novoItem);
+                        
+                        System.out.println("\n Item cadastrado com sucesso!");
+                        break;      
+
 
                     case 0:
                         System.out.println("Saindo do sistema");
