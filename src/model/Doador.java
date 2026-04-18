@@ -10,7 +10,7 @@ public class Doador extends Usuario {
 
     // Construtor
     public Doador(int id, String nome, String telefone, String email, String tipoDoacao) {
-        super(id, nome, telefone, email);
+        super(id, nome, telefone, email, endereco);
         this.tipoDoacao = tipoDoacao;
     }
 

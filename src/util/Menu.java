@@ -7,7 +7,7 @@ import model.Beneficiario;
 
 
 public class Menu {
-    public static void executarMenu(String[] args) {
+    public static void executarMenu() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Doador> listaDoadores = new ArrayList<>();
         ArrayList<Beneficiario> listaBeneficiarios = new ArrayList<>();
@@ -15,6 +15,8 @@ public class Menu {
         
         int opcao = -1;
         int contadorId = 1;
+
+        String nome, telefone, email, endereco;
 
         do {
                 System.out.println("\n===MENU PRINCIPAL ===");
@@ -67,8 +69,8 @@ public class Menu {
                         String tipoBeneficiario = scanner.nextLine();
 
 
-                        Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nome, telefone, email, endereco);
-                        listaDoadores.add(novoBeneficiario);
+                        Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nome, telefone, email, endereco, tipoBeneficiario);
+                        listaBeneficiarios.add(novoBeneficiario);
                         
                         System.out.println("\n Beneficiario cadastrado com sucesso!");
                         break;      

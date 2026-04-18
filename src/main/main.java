@@ -1,1 +1,7 @@
-public class Main {}
+import util.Menu;
+
+public class Main {
+    public static void main(String[] args){
+        Menu.executarMenu();
+    }
+}
