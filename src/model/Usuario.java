@@ -36,7 +36,7 @@ public class Usuario {
     }
 
     /**
-     * Exibe os dados básicos do usuário no terminal
+     * Exibe os dados básicos do nosso usuário no terminal
      */
     public void exibirDados() {
         System.out.println("ID: " + id);
