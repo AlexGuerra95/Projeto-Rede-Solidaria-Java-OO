@@ -13,4 +13,14 @@ public class Doador extends Usuario {
         super(id, nome, telefone, email);
         this.tipoDoacao = tipoDoacao;
     }
+
+    public String getTipoDoacao() {
+        return tipoDoacao;
+    }
+
+    @Override
+    public void exibirDados() {
+        super.exibirDados();
+        System.out.println("Tipo de Doação: " + tipoDoacao);
+    }
 }
