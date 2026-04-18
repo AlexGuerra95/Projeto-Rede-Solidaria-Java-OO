@@ -9,9 +9,9 @@ public class Doador extends Usuario {
     private String tipoDoacao;
 
     // Construtor
-    public Doador(int id, String nome, String telefone, String email, String tipoDoacao) {
+    public Doador(int id, String nome, String telefone, String email, String endereco) {
         super(id, nome, telefone, email, endereco);
-        this.tipoDoacao = tipoDoacao;
+        
     }
 
     public String getTipoDoacao() {

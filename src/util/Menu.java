@@ -1,4 +1,4 @@
-package model;
+package util;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -16,14 +16,13 @@ public class Menu {
         int opcao = -1;
         int contadorId = 1;
 
-        String nome, telefone, email, endereco;
 
         do {
                 System.out.println("\n===MENU PRINCIPAL ===");
                 System.out.println("1 - Cadastrar Doador");
                 System.out.println("2 - Cadastrar Beneficiario");
                 System.out.println("3 - Cadastrar Item"); 
-                System.out.println("0 - Sair")         
+                System.out.println("0 - Sair");        
                 System.out.print("Escolha uma opção: ");
     
                 opcao = scanner.nextInt();
