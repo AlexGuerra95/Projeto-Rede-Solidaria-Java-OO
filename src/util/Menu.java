@@ -1,9 +1,11 @@
 package util;
 
-import java.util.Scanner;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import model.Doador;
+import java.util.Scanner;
 import model.Beneficiario;
+import model.Doador;
 import model.ItemDoacao;
 
 
@@ -55,22 +57,26 @@ public class Menu {
                     case 2:               
                        
                         System.out.print("Informe seu Nome: ");
-                        String nome = scanner.nextLine();
+                        String nomeBeneficiario = scanner.nextLine();
                         
                         System.out.print("Informe seu Telefone: ");
-                        String telefone = scanner.nextLine();
+                        String telefoneBeneficiario = scanner.nextLine();
                         
                         System.out.print("Informe seu Email: ");
-                        String email = scanner.nextLine();
+                        String emailBeneficiario = scanner.nextLine();
                         
                         System.out.print("Informe seu Endereço: ");
-                        String endereco = scanner.nextLine();
+                        String enderecoBeneficiario = scanner.nextLine();
                         
                         System.out.print("Informe seu Tipo de Beneficiario: ");
                         String tipoBeneficiario = scanner.nextLine();
 
+                        System.out.print("Informe o nível de prioridade: ");
+                        int nivelPrioridade = scanner.nextInt();
+                        scanner.nextLine();  
 
-                        Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nome, telefone, email, endereco, tipoBeneficiario);
+
+                        Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nomeBeneficiario, telefoneBeneficiario, emailBeneficiario, enderecoBeneficiario, tipoBeneficiario, nivelPrioridade);
                         listaBeneficiarios.add(novoBeneficiario);
                         
                         System.out.println("\n Beneficiario cadastrado com sucesso!");
@@ -89,19 +95,19 @@ public class Menu {
                         String descricao = scanner.nextLine();
                         
                         System.out.print("Informe a quantidade: ");
-                        Int quantidade = scanner.nextLine();
+                        int quantidade = scanner.nextInt();
+                        scanner.nextLine();
                         
                         System.out.print("Informe o estado de conservação: ");
                         String estadoConservacao = scanner.nextLine();
 
-                        System.out.print("Informe a data do cadastro: ");
-                        LocalDate dataCadastro = scanner.nextLine();
+                        LocalDate dataCadastro = LocalDate.now();
 
                         System.out.print("Informe o status do produto: ");
                         String status  = scanner.nextLine();
 
 
-                        ItemDoacao novoItem = new itemDoacao(contadorId++, nomeItem, categoria, descricao, quantidade, estadoConservacao, dataCadastro, status);
+                        ItemDoacao novoItem = new ItemDoacao(contadorId++, nomeItem, categoria, descricao, quantidade, estadoConservacao, dataCadastro, status);
                         listaItem.add(novoItem);
                         
                         System.out.println("\n Item cadastrado com sucesso!");

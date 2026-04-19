@@ -1,4 +1,7 @@
+package model;
+
 import java.time.LocalDate;
+
 
 public class ItemDoacao {
 
@@ -30,7 +33,7 @@ public class ItemDoacao {
         return id;
     }
 
-    public void setId(Int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,10 +88,10 @@ public class ItemDoacao {
     public void setStatus(String status) {
         this.status = status;
     }
-}
+
 
  public void exibirDadosItem() {
-    System.out.println("ID: " + id);
+    System.out.println("Id: " + id);
     System.out.println("Nome do item: " + nomeItem);
     System.out.println("Categoria: " + categoria);
     System.out.println("Descrição: " + descricao);
@@ -97,4 +100,5 @@ public class ItemDoacao {
     System.out.println("Data de cadastro: " + dataCadastro);
     System.out.println("Status: " + status);
     System.out.println("      ");
+}
 }

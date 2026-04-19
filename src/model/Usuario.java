@@ -23,7 +23,7 @@ public class Usuario {
         return id;
     }
 
-    public void setId(Int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
