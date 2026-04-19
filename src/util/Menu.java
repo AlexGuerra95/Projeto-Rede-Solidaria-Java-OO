@@ -15,7 +15,7 @@ public class Menu {
         ArrayList<Doador> listaDoadores = new ArrayList<>();
         ArrayList<Beneficiario> listaBeneficiarios = new ArrayList<>();
         ArrayList<ItemDoacao> listaItem = new ArrayList<>();
-        
+
         
         int opcao = -1;
         int contadorId = 1;
@@ -25,7 +25,7 @@ public class Menu {
                 System.out.println("\n===MENU PRINCIPAL ===");
                 System.out.println("1 - Cadastrar Doador");
                 System.out.println("2 - Cadastrar Beneficiario");
-                System.out.println("3 - Cadastrar Item"); 
+                System.out.println("3 - Cadastrar Item");
                 System.out.println("0 - Sair");        
                 System.out.print("Escolha uma opção: ");
     
@@ -114,6 +114,7 @@ public class Menu {
                         break;      
 
 
+                  
                     case 0:
                         System.out.println("Saindo do sistema");
                         break;
