@@ -1,8 +1,6 @@
 package model;
 
-/**
- * Classe base que representa um usuário do sistema.
- */
+
 public class Usuario {
 
     private int id;
@@ -25,24 +23,42 @@ public class Usuario {
         return id;
     }
 
+    public void setId(Int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getTelefone() {
         return telefone;
     }
 
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
    public String getEndereco() {
         return endereco;
     }
-    /**
-     * Exibe os dados básicos do nosso usuário no terminal
-     */
+  
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    
     public void exibirDados() {
         System.out.println("ID: " + id);
         System.out.println("Nome: " + nome);

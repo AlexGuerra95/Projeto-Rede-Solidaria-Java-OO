@@ -80,7 +80,7 @@ public class Menu {
                         case 3:               
                        
                         System.out.print("Informe nome do item: ");
-                        String nome = scanner.nextLine();
+                        String nomeItem = scanner.nextLine();
                         
                         System.out.print("Informe a categoria: ");
                         String categoria = scanner.nextLine();
@@ -92,16 +92,16 @@ public class Menu {
                         Int quantidade = scanner.nextLine();
                         
                         System.out.print("Informe o estado de conservação: ");
-                        String estado = scanner.nextLine();
+                        String estadoConservacao = scanner.nextLine();
 
                         System.out.print("Informe a data do cadastro: ");
-                        Date data = scanner.nextLine();
+                        LocalDate dataCadastro = scanner.nextLine();
 
                         System.out.print("Informe o status do produto: ");
                         String status  = scanner.nextLine();
 
 
-                        ItemDoacao novoItem = new itemDoacao(contadorId++, nome, categoria, descricao, quantidade, estado, data, status);
+                        ItemDoacao novoItem = new itemDoacao(contadorId++, nomeItem, categoria, descricao, quantidade, estadoConservacao, dataCadastro, status);
                         listaItem.add(novoItem);
                         
                         System.out.println("\n Item cadastrado com sucesso!");
