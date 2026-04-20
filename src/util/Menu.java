@@ -11,7 +11,7 @@ import repository.DoacaoRepository;
 
 
 public class Menu {
-    public static void executarMenu() {
+    public static void executarMenu(DoacaoRepository repo) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Doador> listaDoadores = new ArrayList<>();
         ArrayList<Beneficiario> listaBeneficiarios = new ArrayList<>();
