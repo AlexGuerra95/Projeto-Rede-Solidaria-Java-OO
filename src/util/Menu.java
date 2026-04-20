@@ -7,6 +7,7 @@ import java.util.Scanner;
 import model.Beneficiario;
 import model.Doador;
 import model.ItemDoacao;
+import repository.DoacaoRepository;
 
 
 public class Menu {
@@ -26,6 +27,7 @@ public class Menu {
                 System.out.println("1 - Cadastrar Doador");
                 System.out.println("2 - Cadastrar Beneficiario");
                 System.out.println("3 - Cadastrar Item");
+                System.out.println("4 - Listar Itens Disponíveis");
                 System.out.println("0 - Sair");        
                 System.out.print("Escolha uma opção: ");
     
@@ -113,7 +115,16 @@ public class Menu {
                         System.out.println("\n Item cadastrado com sucesso!");
                         break;      
 
-
+                    case 4:
+                    System.out.println("\n Itens Disponíveis: ");
+                    if (repo.getListaItens().isEmpty()) {
+                        System.out.println("Nenhum item cadastrado no momento.");
+                    } else {
+                        for (ItemDoacao item : repo.getListaItens()) {
+                            item.exibirDadosItem();
+                        }
+                    }
+                    break;
                   
                     case 0:
                         System.out.println("Saindo do sistema");
