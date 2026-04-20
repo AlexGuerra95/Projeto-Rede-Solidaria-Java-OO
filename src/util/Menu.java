@@ -7,6 +7,7 @@ import java.util.Scanner;
 import model.Beneficiario;
 import model.Doador;
 import model.ItemDoacao;
+import repository.DoacaoRepository;
 
 
 public class Menu {
