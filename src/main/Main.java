@@ -7,6 +7,6 @@ public class Main {
     public static void main(String[] args) {
         DoacaoRepository repo = new DoacaoRepository();
         repo.carregarDadosIniciais();
-        Menu.executarMenu();
+        Menu.executarMenu(repo);
     }
 }
