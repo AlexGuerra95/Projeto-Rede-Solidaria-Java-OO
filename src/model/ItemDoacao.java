@@ -14,7 +14,7 @@ public class ItemDoacao {
     private LocalDate dataCadastro;
     private String status;
 
-    // Construtor
+    
     public ItemDoacao(int id, String nomeItem, String categoria, String descricao,
                       int quantidade, String estadoConservacao,
                       LocalDate dataCadastro, String status) {
