@@ -81,11 +81,11 @@ public class ItemDoacao {
         return dataCadastro;
     }
 
-    public String getStatus() {
+    public StatusItem getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    private void setStatus(StatusItem status) {
         this.status = status;
     }
 
