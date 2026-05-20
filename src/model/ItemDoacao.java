@@ -12,12 +12,12 @@ public class ItemDoacao {
     private int quantidade;
     private String estadoConservacao;
     private LocalDate dataCadastro;
-    private String status;
+    private StatusItem status;
 
     
     public ItemDoacao(int id, String nomeItem, String categoria, String descricao,
                       int quantidade, String estadoConservacao,
-                      LocalDate dataCadastro, String status) {
+                      LocalDate dataCadastro, StatusItem status) {
         this.id = id;
         this.nomeItem = nomeItem;
         this.categoria = categoria;
