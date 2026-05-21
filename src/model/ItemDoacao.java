@@ -12,12 +12,12 @@ public class ItemDoacao {
     private int quantidade;
     private String estadoConservacao;
     private LocalDate dataCadastro;
-    private String status;
+    private StatusItem status;
 
     
     public ItemDoacao(int id, String nomeItem, String categoria, String descricao,
                       int quantidade, String estadoConservacao,
-                      LocalDate dataCadastro, String status) {
+                      LocalDate dataCadastro, StatusItem status) {
         this.id = id;
         this.nomeItem = nomeItem;
         this.categoria = categoria;
@@ -81,12 +81,40 @@ public class ItemDoacao {
         return dataCadastro;
     }
 
-    public String getStatus() {
+    public StatusItem getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    private void setStatus(StatusItem status) {
         this.status = status;
+    }
+
+    // Metodos de controle do clico de vida 
+    public void reservar() {
+        if (this.status == StatusItem.DISPONIVEL) {
+            this.status = StatusItem.RESERVADO;
+            System.out.println("Sucesso: O item '" + nomeItem + "' agora está RESERVADO.");
+        } else {
+            System.out.println("Aviso: O item '" + nomeItem + "' não pode ser reservado porque está com o status: " + this.status);
+        }
+    }
+
+    public void entregar() {
+        if (this.status == StatusItem.RESERVADO) {
+            this.status = StatusItem.ENTREGUE;
+            System.out.println("Sucesso: O item '" + nomeItem + "' foi ENTREGUE com sucesso!");
+        } else {
+            System.out.println("Aviso: O item '" + nomeItem + "' só pode ser entregue se estiver RESERVADO primeiro. Status atual: " + this.status);
+        }
+    }
+
+    public void cancelar() {
+        if (this.status != StatusItem.ENTREGUE) {
+            this.status = StatusItem.CANCELADO;
+            System.out.println("Sucesso: O item '" + nomeItem + "' foi CANCELADO.");
+        } else {
+            System.out.println("Erro: Não é possível cancelar o item '" + nomeItem + "' pois ele já foi ENTREGUE.");
+        }
     }
 
 
