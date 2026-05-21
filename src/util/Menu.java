@@ -14,9 +14,6 @@ import repository.DoacaoRepository;
 public class Menu {
     public static void executarMenu(DoacaoRepository repo) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Doador> listaDoadores = new ArrayList<>();
-        ArrayList<Beneficiario> listaBeneficiarios = new ArrayList<>();
-        ArrayList<ItemDoacao> listaItem = new ArrayList<>();
 
         
         int opcao = -1;
@@ -51,7 +48,7 @@ public class Menu {
                         String endereco = scanner.nextLine();
 
                         Doador novoDoador = new Doador(contadorId++, nome, telefone, email, endereco);
-                        listaDoadores.add(novoDoador);
+                        repo.salvarDoador(novoDoador);
                         
                         System.out.println("\n Doador cadastrado com sucesso!");
                         break;      
@@ -80,7 +77,7 @@ public class Menu {
 
 
                         Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nomeBeneficiario, telefoneBeneficiario, emailBeneficiario, enderecoBeneficiario, tipoBeneficiario, nivelPrioridade);
-                        listaBeneficiarios.add(novoBeneficiario);
+                        repo.salvarBeneficiario(novoBeneficiario);
                         
                         System.out.println("\n Beneficiario cadastrado com sucesso!");
                         break;      
@@ -111,7 +108,7 @@ public class Menu {
 
 
                         ItemDoacao novoItem = new ItemDoacao(contadorId++, nomeItem, categoria, descricao, quantidade, estadoConservacao, dataCadastro, status);
-                        listaItem.add(novoItem);
+                        repo.salvarItem(novoItem);
                         
                         System.out.println("\n Item cadastrado com sucesso!");
                         break;      
