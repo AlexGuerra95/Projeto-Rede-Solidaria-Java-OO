@@ -11,6 +11,7 @@ public class TesteCicloVida {
             1, 
             "Cesta Básica", 
             "Alimentos não perecíveis", 
+            "Cesta contendo 12 itens essenciais",
             10, 
             "Excelente", 
             LocalDate.now(), 
