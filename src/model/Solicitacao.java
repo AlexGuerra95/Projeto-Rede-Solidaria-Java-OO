@@ -9,21 +9,20 @@ public class Solicitacao {
     public String justificativa;
     public StatusSolicitacao status;
 
-    public Solicitacao(int id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa){
+    public Solicitacao(String id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa){
         this.id = id;
         this.beneficiario = beneficiario;
         this.item = item;
         this.quantSolicitada = quantSolicitada;
         this.justificativa = justificativa;
-        this.status = StatusSolicitacao.PENDENTE;
-
+        this.status = StatusSolicitacao.APROVADA;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,5 +75,4 @@ public class Solicitacao {
         System.out.println("Status: " + status);
         System.out.println("      ");
     }
-
 }

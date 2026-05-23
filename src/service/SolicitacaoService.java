@@ -10,60 +10,47 @@ public class SolicitacaoService {
     private final ValidacaoService validacaoService;
     private final DoacaoRepository repository;
 
-    public SolicitacaoService(ValidacaoService validacaoService, DoacaoRepository repository){
+    public SolicitacaoService(ValidacaoService validacaoService, DoacaoRepository repository) {
         this.validacaoService = validacaoService;
         this.repository = repository;
     }
 
-    public boolean solicitarItem(Solicitacao solicitacao){
-        ItemDoacao item = solicitacao.getItem();
-        int quantidade = solicitacao.getQuantidade();
-        
-        
-        boolean valido = validacaoService.validarDisponibilidade(item, quantidade);
-
-        if(valido){
-            
-            item.setQuantidade(item.getQuantidade() - quantidade);
-
-           
-            if (item.getQuantidade() == 0) {
-                item.reservar(); 
-            }
-
-            
-            solicitacao.setStatus(StatusSolicitacao.APROVADA);
-            repository.registrarSolicitacao(solicitacao);
-            return true;
+    public void solicitarItem(Solicitacao solicitacao) {
+        if (solicitacao == null) {
+            throw new IllegalArgumentException("Solicitação inválida.");
         }
 
-        solicitacao.setStatus(StatusSolicitacao.REJEITADA);
-        repository.registrarSolicitacao(solicitacao);
-        return false;
+        ItemDoacao item = solicitacao.getItem();
+        int quantidade = solicitacao.getQuantidade();
+
+        // Lança exceção se inválido (IllegalArgumentException ou IllegalStateException)
+        validacaoService.validarDisponibilidade(item, quantidade);
+
+        item.setQuantidade(item.getQuantidade() - quantidade);
+        if (item.getQuantidade() == 0) {
+            item.reservar();
+        }
+
+        solicitacao.setStatus(StatusSolicitacao.APROVADA);
+        repository.salvarSolicitacao(solicitacao);
+        System.out.println("Solicitação registrada e aprovada com sucesso!");
     }
 
-    
-    public boolean cancelarSolicitacao(Solicitacao solicitacao) {
+    public void cancelarSolicitacao(Solicitacao solicitacao) {
         if (solicitacao == null) {
-            System.out.println("Erro: Solicitação não encontrada no sistema.");
-            return false;
+            throw new IllegalArgumentException("Solicitação não encontrada no sistema.");
         }
 
         if (solicitacao.getStatus() != StatusSolicitacao.APROVADA) {
-            System.out.println("Erro: Esta solicitação não está ativa ou já foi modificada.");
-            return false;
+            throw new IllegalStateException(
+                "Esta solicitação não pode ser cancelada. Status atual: " + solicitacao.getStatus()
+            );
         }
 
         ItemDoacao item = solicitacao.getItem();
-        
-        
         item.setQuantidade(item.getQuantidade() + solicitacao.getQuantidade());
+        solicitacao.setStatus(StatusSolicitacao.CANCELADA);
 
-        
-        solicitacao.setStatus(StatusSolicitacao.REJEITADA);
-        
-        System.out.println("✓ Desistência registrada com sucesso! O estoque foi devolvido à rede.");
-        return true;
+        System.out.println("Cancelamento registrado! O estoque foi devolvido à rede.");
     }
-    
 }

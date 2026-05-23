@@ -10,7 +10,7 @@ public class Usuario {
     private String endereco;
 
     // Construtor principal
-    public Usuario(int id, String nome, String telefone, String email, String endereco) {
+    public Usuario(String id, String nome, String telefone, String email, String endereco) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -19,11 +19,11 @@ public class Usuario {
     }
 
     // Getters (acesso aos dados)
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

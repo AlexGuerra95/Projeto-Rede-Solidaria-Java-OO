@@ -8,7 +8,7 @@ public class TesteCicloVida {
 
         //Criando um item novo que ja nasce como disponivel 
         ItemDoacao item = new ItemDoacao(
-            1, 
+            "ITE-001", 
             "Cesta Básica", 
             "Alimentos não perecíveis", 
             "Cesta contendo 12 itens essenciais",

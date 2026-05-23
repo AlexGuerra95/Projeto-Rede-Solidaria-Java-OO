@@ -13,7 +13,7 @@ public class DoacaoEfetivada {
 
 
 
-    public DoacaoEfetivada(int id, ItemDoacao item, Doador doador, Beneficiario beneficiario, int quantSolicitada, LocalDate dataCadastro, String observacoes){
+    public DoacaoEfetivada(String id, ItemDoacao item, Doador doador, Beneficiario beneficiario, int quantSolicitada, LocalDate dataCadastro, String observacoes){
     this.id = id;
     this.item = item;
     this.doador = doador;
@@ -26,11 +26,11 @@ public class DoacaoEfetivada {
 
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
