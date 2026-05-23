@@ -216,7 +216,7 @@ public class SolicitacaoController {
         repo.salvarDoacaoEfetivada(efetivada);
 
         System.out.println(
-            "\n[SUCESSO] Pedido finalizado e " +
+            "\n SUCESSO! Pedido finalizado e " +
             "doação registrada no histórico."
         );
     }
@@ -356,6 +356,46 @@ public class SolicitacaoController {
 
         for (DoacaoEfetivada d : lista) {
             d.exibirDadosItem();
+        }
+    }
+
+    public void consultarSolicitacoesFiltradas(int tipoFiltro) {
+
+        System.out.println("\n=== CONSULTAR SOLICITAÇÕES ===");
+
+        List<Solicitacao> filtradas = switch (tipoFiltro) {
+            case 1 -> repo.getListaSolicitacoes();
+            case 2 -> repo.getListaSolicitacoes().stream()
+                    .filter(s -> s.getStatus() == StatusSolicitacao.APROVADA)
+                    .toList();
+            case 3 -> repo.getListaSolicitacoes().stream()
+                    .filter(s -> s.getStatus() == StatusSolicitacao.PENDENTE)
+                    .toList();
+            case 4 -> repo.getListaSolicitacoes().stream()
+                    .filter(s -> s.getStatus() == StatusSolicitacao.ENTREGUE
+                              || s.getStatus() == StatusSolicitacao.REJEITADA)
+                    .toList();
+            default -> null;
+        };
+
+        if (filtradas == null) {
+            System.out.println("Opção de filtro inválida.");
+            return;
+        }
+
+        if (filtradas.isEmpty()) {
+            System.out.println("Nenhuma solicitação encontrada para este filtro.");
+            return;
+        }
+
+        for (Solicitacao s : filtradas) {
+            System.out.println(
+                "ID Pedido: " + s.getId() +
+                " | Beneficiário: " + s.getBeneficiario().getNome() +
+                " | Item: " + s.getItem().getNomeItem() +
+                " | Quantidade: " + s.getQuantidade() +
+                " | Status: " + s.getStatus()
+            );
         }
     }
 
