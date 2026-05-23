@@ -67,9 +67,7 @@ public class ItemDoacao {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
-
-        if(this.quantidade <= 0){
-            this.status = StatusItem.INDISPONIVEL;
+        
         }
     }
 
