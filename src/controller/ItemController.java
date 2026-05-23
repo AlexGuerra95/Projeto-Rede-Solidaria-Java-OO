@@ -7,11 +7,12 @@ import java.util.Scanner;
 import model.ItemDoacao;
 import model.StatusItem;
 import repository.DoacaoRepository;
+import util.GeradorIds;
 
 public class ItemController {
     private final DoacaoRepository repo;
     private final Scanner scanner;
-    private static int contadorId = 1;
+    
 
     public ItemController(DoacaoRepository repo, Scanner scanner) {
         this.repo = repo;
@@ -26,7 +27,7 @@ public class ItemController {
         System.out.print("Quantidade: "); int qtd = Integer.parseInt(scanner.nextLine());
         System.out.print("Estado de Conservação: "); String estado = scanner.nextLine();
 
-        ItemDoacao novoItem = new ItemDoacao(contadorId++, nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL);
+        ItemDoacao novoItem = new ItemDoacao(GeradorIds.gerarIdDoador(), nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL);
         repo.salvarItem(novoItem);
         System.out.println("Item cadastrado com sucesso e disponível na rede!");
     }

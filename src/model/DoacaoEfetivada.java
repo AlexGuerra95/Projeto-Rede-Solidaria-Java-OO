@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public class DoacaoEfetivada {
-    public int id;
+    public String id;
     public ItemDoacao item;
     public Doador doador;
     public Beneficiario beneficiario;
@@ -13,7 +13,7 @@ public class DoacaoEfetivada {
 
 
 
-    public DoacaoEfetivada(int id, ItemDoacao item, Doador doador, Beneficiario beneficiario, int quantSolicitada, LocalDate dataCadastro, String observacoes){
+    public DoacaoEfetivada(String id, ItemDoacao item, Doador doador, Beneficiario beneficiario, int quantSolicitada, LocalDate dataCadastro, String observacoes){
     this.id = id;
     this.item = item;
     this.doador = doador;
@@ -26,7 +26,7 @@ public class DoacaoEfetivada {
 
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

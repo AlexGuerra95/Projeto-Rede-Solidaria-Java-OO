@@ -2,13 +2,15 @@ package controller;
 
 import java.util.List;
 import java.util.Scanner;
+
 import model.Beneficiario;
 import repository.DoacaoRepository;
+import util.GeradorIds;
 
 public class BeneficiarioController {
     private final DoacaoRepository repo;
     private final Scanner scanner;
-    private static int contadorId = 1;
+    
 
     public BeneficiarioController(DoacaoRepository repo, Scanner scanner) {
         this.repo = repo;
@@ -36,7 +38,7 @@ public class BeneficiarioController {
         int prioridade = lerNumero();
 
         
-        Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nome, tel, email, end, tipo, prioridade);
+        Beneficiario novoBeneficiario = new Beneficiario(GeradorIds.gerarIdDoador(), nome, tel, email, end, tipo, prioridade);
         repo.salvarBeneficiario(novoBeneficiario);
         
         System.out.println("Beneficiário cadastrado com sucesso!");

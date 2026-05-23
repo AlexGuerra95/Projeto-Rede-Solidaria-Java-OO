@@ -4,14 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Beneficiario;
-import model.DoacaoEfetivada;
-import model.Doador;
-import model.ItemDoacao;
-import model.Solicitacao;
-import model.StatusItem;
-import model.StatusSolicitacao;
-
 public class DoacaoRepository {
     public List<Doador> doadores = new ArrayList<>();
     public List<Beneficiario> beneficiarios = new ArrayList<>();
@@ -89,27 +81,27 @@ public class DoacaoRepository {
 
 
     //Por id
-    public ItemDoacao buscarItemPorId(int id) {
+    public ItemDoacao buscarItemPorId(String id) {
         for (ItemDoacao item : listaItens) {
-            if (item.getId() == id) {
+            if (item.getId().equals(id)) {
                 return item;
             }
         }
         return null;
     }
 
-    public Beneficiario buscarBeneficiarioPorId(int id) {
+    public Beneficiario buscarBeneficiarioPorId(String id) {
         for (Beneficiario b : beneficiarios) {
-            if (b.getId() == id) {
+            if (b.getId().equals(id)) {
                 return b;
             }
         }
         return null;
     }
 
-    public Doador buscarDoadorPorId(int id) {
+    public Doador buscarDoadorPorId(String id) {
         for (Doador d : doadores) {
-            if (d.getId() == id) {
+            if (d.getId().equals(id)) {
             return d;
             }
         }

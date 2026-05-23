@@ -2,13 +2,15 @@ package controller;
 
 import java.util.List;
 import java.util.Scanner;
+
 import model.Doador;
 import repository.DoacaoRepository;
+import util.GeradorIds;
 
 public class DoadorController {
     private final DoacaoRepository repo;
     private final Scanner scanner;
-    private static int contadorId = 1; 
+    
 
     public DoadorController(DoacaoRepository repo, Scanner scanner) {
         this.repo = repo;
@@ -22,7 +24,7 @@ public class DoadorController {
         System.out.print("Email: "); String email = scanner.nextLine();
         System.out.print("Endereço: "); String end = scanner.nextLine();
 
-        repo.salvarDoador(new Doador(contadorId++, nome, tel, email, end));
+        repo.salvarDoador(new Doador(GeradorIds.gerarIdDoador(), nome, tel, email, end));
         System.out.println("Doador cadastrado com sucesso!");
     }
 

@@ -1,10 +1,11 @@
 package util;
 
+import java.util.Scanner;
+
 import controller.BeneficiarioController;
 import controller.DoadorController;
 import controller.ItemController;
 import controller.SolicitacaoController;
-import java.util.Scanner;
 import repository.DoacaoRepository;
 
 public class Menu {
@@ -121,9 +122,10 @@ public class Menu {
             int sub = Integer.parseInt(sc.nextLine());
             switch (sub) {
                 case 1 -> ctrl.criarSolicitacao();
-                case 2 -> ctrl.consultarSolicitacoes(); 
-                case 3 -> ctrl.consultarDoacoesEfetivadas();
-                case 4 -> ctrl.cancelarSolicitacao();
+                case 2 -> ctrl.efetivarSolicitacao();
+                case 3 -> ctrl.consultarSolicitacoes(); 
+                case 4 -> ctrl.consultarDoacoesEfetivadas();
+                case 5 -> ctrl.cancelarSolicitacao();
                 default -> System.out.println("Opção inválida.");
             }
         } catch (NumberFormatException e) {

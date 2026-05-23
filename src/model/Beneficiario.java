@@ -2,11 +2,12 @@ package model;
 
 public class Beneficiario extends Usuario {
 
+    private String id;
     private String tipoBeneficiario;
     private int nivelPrioridade;
 
     // Construtor
-    public Beneficiario(int id, String nome, String telefone, String email, String endereco,
+    public Beneficiario(String id, String nome, String telefone, String email, String endereco,
                         String tipoBeneficiario, int nivelPrioridade) {
         super(id, nome, telefone, email, endereco);
         this.tipoBeneficiario = tipoBeneficiario;

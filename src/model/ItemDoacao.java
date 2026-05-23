@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class ItemDoacao {
 
-    private int id;
+    private String id;
     private String nomeItem;
     private String categoria;
     private String descricao;
@@ -15,7 +15,7 @@ public class ItemDoacao {
     private StatusItem status;
 
     
-    public ItemDoacao(int id, String nomeItem, String categoria, String descricao,
+    public ItemDoacao(String id, String nomeItem, String categoria, String descricao,
                       int quantidade, String estadoConservacao,
                       LocalDate dataCadastro, StatusItem status) {
         this.id = id;
@@ -29,11 +29,11 @@ public class ItemDoacao {
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
