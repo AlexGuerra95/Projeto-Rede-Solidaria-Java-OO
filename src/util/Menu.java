@@ -29,7 +29,7 @@ public class Menu {
                 System.out.println("2 - Cadastrar Beneficiario");
                 System.out.println("3 - Cadastrar Item");
                 System.out.println("4 - Listar Itens Disponíveis");
-                System.out.println("5 - Efetuar Solicitação");
+                System.out.println("5 - Gestão de Solicitações");
                 System.out.println("0 - Sair");        
                 System.out.print("Escolha uma opção: ");
     
@@ -162,58 +162,103 @@ repo.salvarItem(novoItem);
 
                         case 5:
 
-                        ValidacaoService validacaoService =
-                            new ValidacaoService();
-                    
-                        SolicitacaoService solicitacaoService =
-                            new SolicitacaoService(
-                                validacaoService,
-                                repo
-                            );
-                    
-                        System.out.println(
-                            "\n=== SOLICITAÇÃO DE ITEM ==="
-                        );
-                    
-                        if(repo.getListaItens().isEmpty()){
-                    
-                            System.out.println(
-                                "Nenhum item disponível."
-                            );
-                    
-                            break;
-                        }
-                    
-                        for(ItemDoacao i : repo.getListaItens()){
-                    
-                            System.out.println(
-                                i.getId()
-                                + " - "
-                                + i.getNomeItem()
-                                + " | Quantidade: "
-                                + i.getQuantidade()
-                                + " | Status: "
-                                + i.getStatus()
-                            );
-                        }
-                    
-                        System.out.print(
-                            "\nInforme o ID do item: "
-                        );
-                    
-                        int idItem = scanner.nextInt();
+                        case 5:
+                        System.out.println("\n=== GESTÃO DE SOLICITAÇÕES ===");
+                        System.out.println("1 - Criar Nova Solicitação");
+                        System.out.println("2 - Registar Desistência (Cancelar Pedido)");
+                        System.out.print("Escolha uma opção: ");
+                        
+                        int subOpcaoSol = scanner.nextInt();
                         scanner.nextLine();
-                    
-                        ItemDoacao itemSelecionado =
-                            repo.buscarItemPorId(idItem);
-                    
-                        if(itemSelecionado == null){
-                    
-                            System.out.println(
-                                "Item não encontrado."
-                            );
-                    
-                            break;
+                        
+                        ValidacaoService validacaoService = new ValidacaoService();
+                        SolicitacaoService solicitacaoService = new SolicitacaoService(validacaoService, repo);
+                        
+                        if (subOpcaoSol == 1) {
+                            System.out.println("Solicitação de Item");
+                            if(repo.getListaItens().isEmpty()){
+                                System.out.println("Nenhum item disponível.");
+                                break;
+                            }
+                        
+                            for(ItemDoacao i : repo.getListaItens()){
+                                System.out.println(i.getId() + " - " + i.getNomeItem() + " | Quantidade: " + i.getQuantidade() + " | Status: " + i.getStatus());
+                            }
+                        
+                            System.out.print("\nInforme o ID do item: ");
+                            int idItem = scanner.nextInt();
+                            scanner.nextLine();
+                        
+                            ItemDoacao itemSelecionado = repo.buscarItemPorId(idItem);
+                            if(itemSelecionado == null){
+                                System.out.println("Item não encontrado.");
+                                break;
+                            }
+                        
+                            System.out.print("Informe a quantidade solicitada: ");
+                            int quantidadeSolicitada = scanner.nextInt();
+                            scanner.nextLine();
+                        
+                            System.out.print("Informe a justificativa: ");
+                            String justificativa = scanner.nextLine();
+                        
+                            System.out.print("Informe o ID do beneficiário: ");
+                            int idBeneficiario = scanner.nextInt();
+                            scanner.nextLine();
+                                
+                            Beneficiario beneficiario = repo.buscarBeneficiarioPorId(idBeneficiario);
+                            if(beneficiario == null){
+                                System.out.println("Beneficiário não encontrado.");
+                                break;
+                            }
+
+                            Solicitacao solicitacao = new Solicitacao(contadorId++, beneficiario, itemSelecionado, quantidadeSolicitada, justificativa);
+                            boolean aprovado = solicitacaoService.solicitarItem(solicitacao);
+                        
+                            if(aprovado){
+                                System.out.println("\n✓ Solicitação aprovada! Quantidade restante: " + itemSelecionado.getQuantidade());
+                            } else {
+                                System.out.println("\n❌ Solicitação rejeitada.");
+                            }
+                        } 
+                        
+                        else if (subOpcaoSol == 2) {
+                            System.out.println("Cancelar Pedido");
+                            if (repo.getListaSolicitacoes().isEmpty()) {
+                                System.out.println("Nenhuma solicitação encontrada no sistema.");
+                                break;
+                            }
+
+                            boolean existemAtivas = false;
+                            for (Solicitacao s : repo.getListaSolicitacoes()) {
+                                if (s.getStatus() == StatusSolicitacao.APROVADA) {
+                                    System.out.println("ID Pedido: " + s.getId() + " | Beneficiário: " + s.getBeneficiario().getNome() + " | Item: " + s.getItem().getNomeItem() + " | Qtd Reservada: " + s.getQuantidade());
+                                    existemAtivas = true;
+                                }
+                            }
+
+                            if (!existemAtivas) {
+                                System.out.println("Nenhuma solicitação ativa para cancelamento no momento.");
+                                break;
+                            }
+
+                            System.out.print("\nInforme o ID da solicitação que deseja cancelar: ");
+                            int idSolCancelar = scanner.nextInt();
+                            scanner.nextLine();
+
+                            Solicitacao solEncontrada = null;
+                            for (Solicitacao s : repo.getListaSolicitacoes()) {
+                                if (s.getId() == idSolCancelar) {
+                                    solEncontrada = s;
+                                    break;
+                                }
+                            }
+
+                            solicitacaoService.cancelarSolicitacao(solEncontrada);
+                        } else {
+                            System.out.println("❌ Opção inválida!");
+                        }
+                        break;
                         }
                     
                         System.out.print(
