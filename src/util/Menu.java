@@ -85,7 +85,16 @@ public class Menu {
                         }
                         break; 
                     
-                    case 2:               
+                    case 2:  
+                    System.out.println("Opções do Beneficiario");
+                    System.out.println("1 - Cadastrar Beneficiario");
+                    System.out.println("2 - Consultar Beneficiario");
+                    System.out.print("Escolha uma opção: ");
+                    
+                    int subOpcaoBeneficiario = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (subOpcaoBeneficiario) {
+                        case 1:
                        
                         System.out.print("Informe seu Nome: ");
                         String nomeBeneficiario = scanner.nextLine();
@@ -111,9 +120,25 @@ public class Menu {
                         repo.salvarBeneficiario(novoBeneficiario);
                         
                         System.out.println("\n Beneficiario cadastrado com sucesso!");
-                        break;      
+                        break; 
+                        
+                        case 2:
+                            System.out.println("Listar Beneficiarios");
+                            java.util.List<Beneficiario> beneficiariosCadastrados = repo.getListaBeneficiarios(); 
+                            if (beneficiariosCadastrados == null || beneficiariosCadastrados.isEmpty()) {
+                                System.out.println("Nenhum beneficiario cadastrado.");
+                            } else {
+                                for (Beneficiario d : beneficiariosCadastrados) {
+                                    System.out.println("ID: " + d.getId() + " | Nome: " + d.getNome() + " | Email: " + d.getEmail());
+                                }
+                            }
+                            break;
 
-
+                        default:
+                            System.out.println(" Opção inválida no menu de beneficiarios!");
+                            break;
+                    }
+                    break;
                     case 3:               
                        
                         System.out.print("Informe nome do item: ");
@@ -191,7 +216,8 @@ repo.salvarItem(novoItem);
                     case 5:
                         System.out.println("Gestão De Solicitações");
                         System.out.println("1 - Criar Nova Solicitação");
-                        System.out.println("2 - Cancelar Pedido");
+                        System.out.println("2 - Cancelar Solicitação");
+                        System.out.println("3 - Consultar Solicitação");
                         System.out.print("Escolha uma opção: ");
                         
                         int subOpcaoSol = scanner.nextInt();
@@ -302,3 +328,4 @@ repo.salvarItem(novoItem);
             scanner.close();
         } 
     }
+
