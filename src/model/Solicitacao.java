@@ -15,8 +15,7 @@ public class Solicitacao {
         this.item = item;
         this.quantSolicitada = quantSolicitada;
         this.justificativa = justificativa;
-        this.status = StatusSolicitacao.PENDENTE;
-
+        this.status = StatusSolicitacao.APROVADA;
     }
 
     public String getId() {
@@ -76,5 +75,4 @@ public class Solicitacao {
         System.out.println("Status: " + status);
         System.out.println("      ");
     }
-
 }

@@ -12,7 +12,6 @@ import util.GeradorIds;
 public class ItemController {
     private final DoacaoRepository repo;
     private final Scanner scanner;
-    
 
     public ItemController(DoacaoRepository repo, Scanner scanner) {
         this.repo = repo;
@@ -20,34 +19,78 @@ public class ItemController {
     }
 
     public void cadastrarItem() {
-        System.out.println("\n--- CADASTRAR ITEM ---");
-        System.out.print("Nome do item: "); String nome = scanner.nextLine();
-        System.out.print("Categoria: "); String cat = scanner.nextLine();
-        System.out.print("Descrição: "); String desc = scanner.nextLine();
-        System.out.print("Quantidade: "); int qtd = Integer.parseInt(scanner.nextLine());
-        System.out.print("Estado de Conservação: "); String estado = scanner.nextLine();
+        try {
+            System.out.println("\n--- CADASTRAR ITEM ---");
 
-        ItemDoacao novoItem = new ItemDoacao(GeradorIds.gerarIdItem(), nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL);
-        repo.salvarItem(novoItem);
-        System.out.println("Item cadastrado com sucesso e disponível na rede!");
+            System.out.print("Nome do item: ");
+            String nome = scanner.nextLine().trim();
+            if (nome.isEmpty()) throw new IllegalArgumentException("Nome do item não pode ser vazio.");
+
+            System.out.print("Categoria: ");
+            String cat = scanner.nextLine().trim();
+            if (cat.isEmpty()) throw new IllegalArgumentException("Categoria não pode ser vazia.");
+
+            System.out.print("Descrição: ");
+            String desc = scanner.nextLine().trim();
+            if (desc.isEmpty()) throw new IllegalArgumentException("Descrição não pode ser vazia.");
+
+            System.out.print("Quantidade: ");
+            int qtd = lerNumero();
+            if (qtd <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
+
+            System.out.print("Estado de Conservação: ");
+            String estado = scanner.nextLine().trim();
+            if (estado.isEmpty()) throw new IllegalArgumentException("Estado de conservação não pode ser vazio.");
+
+            ItemDoacao novoItem = new ItemDoacao(
+                GeradorIds.gerarIdItem(), nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL
+            );
+            repo.salvarItem(novoItem);
+            System.out.println("Item cadastrado com sucesso e disponível na rede!");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao cadastrar item: " + e.getMessage());
+        }
     }
 
     public void consultarItensFiltrados(int tipoFiltro) {
-        List<ItemDoacao> filtrados = switch (tipoFiltro) {
-            case 1 -> repo.filtrarPorStatus(StatusItem.DISPONIVEL);
-            case 2 -> repo.filtrarPorStatus(StatusItem.RESERVADO);
-            case 3 -> repo.getListaItens();
-            default -> null;
-        };
+        try {
+            List<ItemDoacao> filtrados;
 
-        if (filtrados == null) {
-            System.out.println("Opção de filtro inválida.");
-            return;
+            switch (tipoFiltro) {
+                case 1:
+                    filtrados = repo.filtrarPorStatus(StatusItem.DISPONIVEL);
+                    break;
+                case 2:
+                    filtrados = repo.filtrarPorStatus(StatusItem.RESERVADO);
+                    break;
+                case 3:
+                    filtrados = repo.getListaItens();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Opção de filtro inválida: " + tipoFiltro);
+            }
+
+            if (filtrados.isEmpty()) {
+                System.out.println("Nenhum item encontrado para este filtro.");
+            } else {
+                for (ItemDoacao item : filtrados) {
+                    item.exibirDadosItem();
+                }
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na consulta: " + e.getMessage());
         }
-        if (filtrados.isEmpty()) {
-            System.out.println("Nenhum item encontrado.");
-        } else {
-            filtrados.forEach(ItemDoacao::exibirDadosItem);
+    }
+
+    private int lerNumero() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada inválida! Digite apenas números: ");
+            }
         }
     }
 }
