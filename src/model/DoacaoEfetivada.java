@@ -81,9 +81,9 @@ public class DoacaoEfetivada {
 
     public void exibirDadosItem() {
         System.out.println("Id: " + id);
-        System.out.println("Item: " + item);
-        System.out.println("Doador: " + doador);
-        System.out.println("Beneficiario: " + beneficiario);
+        System.out.println("Item: " + item.getNomeItem());
+        System.out.println("Doador: " + doador.getNome());
+        System.out.println("Beneficiario: " + beneficiario.getNome());
         System.out.println("Quantidade: " + quantSolicitada);
         System.out.println("Observações: " + observacoes);
         System.out.println("Data de cadastro: " + dataCadastro);

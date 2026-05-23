@@ -113,22 +113,21 @@ public class Menu {
         System.out.println("\n--- GESTÃO DE SOLICITAÇÕES ---");
         System.out.println("1 - Criar Nova Solicitação");
         System.out.println("2 - Consultar Solicitações");
-        System.out.println("3 - Cancelar Pedido");
+        System.out.println("3 - Consultar Doações Efetivadas");
+        System.out.println("4 - Cancelar Pedido");
         System.out.print("Escolha: ");
         
         try {
             int sub = Integer.parseInt(sc.nextLine());
-            if (sub == 1) {
-                ctrl.criarSolicitacao();
-            } else if (sub == 2) {
-                ctrl.consultarSolicitacoes(); 
-            } else if (sub == 3) {
-                ctrl.cancelarSolicitacao(); 
-            } else {
-                System.out.println("Opção inválida.");
+            switch (sub) {
+                case 1 -> ctrl.criarSolicitacao();
+                case 2 -> ctrl.consultarSolicitacoes(); 
+                case 3 -> ctrl.consultarDoacoesEfetivadas();
+                case 4 -> ctrl.cancelarSolicitacao();
+                default -> System.out.println("Opção inválida.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("Por favor, digite um número válido.");
-        }
+            System.out.println("Por favor, digite um número.");
+        }   
     }
 }

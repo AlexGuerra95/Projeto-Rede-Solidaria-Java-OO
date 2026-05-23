@@ -1,7 +1,11 @@
 package controller;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import model.Beneficiario;
+import model.DoacaoEfetivada;
+import model.Doador;
 import model.ItemDoacao;
 import model.Solicitacao;
 import model.StatusSolicitacao;
@@ -25,7 +29,7 @@ public class SolicitacaoController {
     }
 
     public void criarSolicitacao() {
-        System.out.println("\n--- NOVA SOLICITAÇÃO DE ITEM ---");
+        System.out.println(" NOVA SOLICITAÇÃO DE ITEM ");
         
         
         if (repo.getListaItens().isEmpty()) {
@@ -66,12 +70,27 @@ public class SolicitacaoController {
             return;
         }
 
+        System.out.print("Informe o ID do doador deste item: ");
+        int idDoador = lerNumero();
+        Doador doador = repo.buscarDoadorPorId(idDoador); 
+    
+        if (doador == null) {
+        System.out.println("Doador não encontrado. Operação cancelada.");
+        return;
+    }
+
        
         Solicitacao solicitacao = new Solicitacao(contadorId++, beneficiario, itemSelecionado, quantidadeSolicitada, justificativa);
         boolean aprovado = solicitacaoService.solicitarItem(solicitacao);
 
         if (aprovado) {
             System.out.println("Solicitação aprovada com sucesso! Quantidade restante do item: " + itemSelecionado.getQuantidade());
+            DoacaoEfetivada efetivada = new DoacaoEfetivada(contadorId++, itemSelecionado, doador, beneficiario, quantidadeSolicitada, LocalDate.now(), 
+            "Solicitação aprovada via menu. Justificativa: " + justificativa);
+            
+            repo.salvarDoacaoEfetivada(efetivada);
+            System.out.println("Doação registrada no histórico de efetivadas!");
+        
         } else {
             System.out.println("Solicitação rejeitada (Estoque insuficiente ou regras de validação violadas).");
         }
@@ -128,6 +147,20 @@ public class SolicitacaoController {
                     " | Qtd: " + s.getQuantidade() + 
                     " | Status: " + s.getStatus()
                 );
+            }
+        }
+
+        public void consultarDoacoesEfetivadas() {
+            System.out.println("Consulta de Doações Efetivadas");
+            List<DoacaoEfetivada> lista = repo.getListaDoacoesEfetivadas();
+
+            if (lista == null || lista.isEmpty()) {
+                System.out.println("Nenhuma doação foi efetivada ainda.");
+                return;
+            }
+
+            for (DoacaoEfetivada d : lista) {
+                d.exibirDadosItem(); 
             }
         }
 

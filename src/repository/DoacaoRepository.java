@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Beneficiario;
+import model.DoacaoEfetivada;
 import model.Doador;
 import model.ItemDoacao;
 import model.Solicitacao;
@@ -16,11 +17,13 @@ public class DoacaoRepository {
     public List<Beneficiario> beneficiarios = new ArrayList<>();
     public List<ItemDoacao> listaItens = new ArrayList<>();
     public List<Solicitacao> listaSolicitacoes = new ArrayList<>();
+    public List<DoacaoEfetivada> listaDoacaoesEfetivadas = new ArrayList<>(); 
 
     public void salvarDoador(Doador d) { doadores.add(d); }
     public void salvarBeneficiario(Beneficiario b) { beneficiarios.add(b); }
     public void salvarItem(ItemDoacao i) { listaItens.add(i); }
     public void registrarSolicitacao(Solicitacao s) { listaSolicitacoes.add(s); }
+    public void salvarDoacaoEfetivada(DoacaoEfetivada de) {listaDoacaoesEfetivadas.add(de);}
 
     // Dados Iniciais (Seed)
     public void carregarDadosIniciais() {
@@ -32,7 +35,9 @@ public class DoacaoRepository {
     public List<Doador> getListaDoadores() { return doadores; }
     public List<Beneficiario> getListaBeneficiarios() { return beneficiarios; }
     public List<Solicitacao> getListaSolicitacoes() { return listaSolicitacoes; }
-
+    public List<DoacaoEfetivada> getListaDoacoesEfetivadas() { return listaDoacaoesEfetivadas; }
+    
+    
     //Métodos de filtro
 
     //Da categoria
@@ -81,6 +86,8 @@ public class DoacaoRepository {
         return resultado;
     }
 
+
+
     //Por id
     public ItemDoacao buscarItemPorId(int id) {
         for (ItemDoacao item : listaItens) {
@@ -99,7 +106,16 @@ public class DoacaoRepository {
         }
         return null;
     }
-}
+
+    public Doador buscarDoadorPorId(int id) {
+        for (Doador d : doadores) {
+            if (d.getId() == id) {
+            return d;
+            }
+        }
+        return null;
+    }
+    }
 
 
 
