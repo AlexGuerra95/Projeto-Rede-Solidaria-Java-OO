@@ -27,7 +27,7 @@ public class SolicitacaoService {
             // Deduz do estoque do item pai normalmente
             item.setQuantidade(item.getQuantidade() - quantidade);
 
-            // Se a solicitação raspou o estoque por completo, o item pai vira RESERVADO
+            // Se a solicitação raspou o estoque por completo, o item RESERVADO
             if (item.getQuantidade() == 0) {
                 item.reservar(); 
             }
@@ -42,4 +42,29 @@ public class SolicitacaoService {
         repository.registrarSolicitacao(solicitacao);
         return false;
     }
+
+    //Sobre a desistência
+    public boolean cancelarSolicitacao(Solicitacao solicitacao) {
+        if (solicitacao == null) {
+            System.out.println("❌ Erro: Solicitação não encontrada no sistema.");
+            return false;
+        }
+
+        if (solicitacao.getStatus() != StatusSolicitacao.APROVADA) {
+            System.out.println("❌ Erro: Esta solicitação não está ativa ou já foi modificada.");
+            return false;
+        }
+
+        ItemDoacao item = solicitacao.getItem();
+        
+        //Devolver os itens ao estoque
+        item.setQuantidade(item.getQuantidade() + solicitacao.getQuantidade());
+
+        // atualizar o status do pedido
+        solicitacao.setStatus(StatusSolicitacao.REJEITADA);
+        
+        System.out.println("✓ Desistência registrada com sucesso! O estoque foi devolvido à rede.");
+        return true;
+    }
+    
 }
