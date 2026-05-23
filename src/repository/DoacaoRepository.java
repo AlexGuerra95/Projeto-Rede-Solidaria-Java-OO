@@ -46,11 +46,35 @@ public class DoacaoRepository {
     }
 
     //Do ciclo de vida
-    public List<ItemDoacao> filtrarPorStatus(StatusItem status) {
+   public List<ItemDoacao> filtrarPorStatus(StatusItem status) {
         List<ItemDoacao> resultado = new ArrayList<>();
+        
         for (ItemDoacao item : listaItens) {
             if (item.getStatus() == status) {
                 resultado.add(item);
+            }
+        }
+        
+        if (status == StatusItem.RESERVADO) {
+            for (Solicitacao s : listaSolicitacoes) {
+                if (s.getStatus() == StatusSolicitacao.APROVADA) {
+                    
+                    if (s.getItem().getStatus() == StatusItem.DISPONIVEL) {
+                        
+                        
+                        ItemDoacao itemVirtual = new ItemDoacao(
+                            s.getItem().getId(), 
+                            s.getItem().getNomeItem(),
+                            s.getItem().getCategoria(),
+                            s.getItem().getDescricao(),
+                            s.getQuantidade(), 
+                            s.getItem().getEstadoConservacao(),
+                            s.getItem().getDataCadastro(),
+                            StatusItem.RESERVADO
+                        );
+                        resultado.add(itemVirtual);
+                    }
+                }
             }
         }
         return resultado;
