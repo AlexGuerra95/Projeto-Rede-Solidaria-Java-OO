@@ -16,31 +16,31 @@ public class SolicitacaoService {
     }
 
     public boolean solicitarItem(Solicitacao solicitacao){
-
         ItemDoacao item = solicitacao.getItem();
         int quantidade = solicitacao.getQuantidade();
+        
+        // Passa pela validação
         boolean valido = validacaoService.validarDisponibilidade(item, quantidade);
 
         if(valido){
-            
-           // Caso o beneficiário compre tudo, vira "reservado" e não indisponível.
-            if (item.getQuantidade() == quantidade) {
+            // Deduz do estoque
+            item.setQuantidade(item.getQuantidade() - quantidade);
+
+            // Se a pessoa zerar o estoque, muda o status geral
+            if (item.getQuantidade() == 0) {
                 item.reservar(); 
             }
 
-            // Depois de verificar se reserva, deduzir estoque
-            item.setQuantidade(item.getQuantidade() - quantidade);
-
+            // reserva parcial
             solicitacao.setStatus(StatusSolicitacao.APROVADA);
             repository.registrarSolicitacao(solicitacao);
-
+            
+            System.out.println("✓ Pedido aprovado! A quantidade foi separada para o beneficiário.");
             return true;
         }
 
-        // Se o ValidacaoService disser que não dá, a solicitação é rejeitada
         solicitacao.setStatus(StatusSolicitacao.REJEITADA);
         repository.registrarSolicitacao(solicitacao);
-
         return false;
     }
 }
