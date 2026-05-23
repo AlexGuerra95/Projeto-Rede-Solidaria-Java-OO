@@ -3,6 +3,14 @@ package repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.Beneficiario;
+import model.DoacaoEfetivada;
+import model.Doador;
+import model.ItemDoacao;
+import model.Solicitacao;
+import model.StatusItem;
+import model.StatusSolicitacao;
+import util.GeradorIds;
 
 public class DoacaoRepository {
     public List<Doador> doadores = new ArrayList<>();
