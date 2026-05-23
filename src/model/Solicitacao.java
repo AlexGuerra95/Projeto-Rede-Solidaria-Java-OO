@@ -2,7 +2,7 @@ package model;
 
 public class Solicitacao {
 
-    public int id;
+    public String id;
     public Beneficiario beneficiario;
     public ItemDoacao item;
     public int quantSolicitada;
