@@ -7,15 +7,15 @@ public class Solicitacao {
     public ItemDoacao item;
     public int quantSolicitada;
     public String justificativa;
-    public String status;
+    public StatusSolicitacao status;
 
-    public Solicitacao(int id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa, String status){
+    public Solicitacao(int id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa){
         this.id = id;
         this.beneficiario = beneficiario;
         this.item = item;
         this.quantSolicitada = quantSolicitada;
         this.justificativa = justificativa;
-        this.status = status;
+        this.status = StatusSolicitacao.PENDENTE;
 
     }
 
@@ -59,11 +59,11 @@ public class Solicitacao {
         this.justificativa = justificativa;
     }
 
-    public String getStatus(){
+    public StatusSolicitacao getStatus(){
         return status;
     }
 
-    public void setStatus(String status){
+    public void setStatus(StatusSolicitacao status){
         this.status = status;
     }
 

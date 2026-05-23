@@ -7,14 +7,14 @@ import java.util.List;
 import model.Beneficiario;
 import model.Doador;
 import model.ItemDoacao;
-import model.StatusItem;
 import model.Solicitacao;
+import model.StatusItem;
 
 public class DoacaoRepository {
-    private List<Doador> doadores = new ArrayList<>();
-    private List<Beneficiario> beneficiarios = new ArrayList<>();
-    private List<ItemDoacao> listaItens = new ArrayList<>();
-    private List<Solicitacao> listaSolicitacoes = new ArrayList<>();
+    public List<Doador> doadores = new ArrayList<>();
+    public List<Beneficiario> beneficiarios = new ArrayList<>();
+    public List<ItemDoacao> listaItens = new ArrayList<>();
+    public List<Solicitacao> listaSolicitacoes = new ArrayList<>();
 
     public void salvarDoador(Doador d) { doadores.add(d); }
     public void salvarBeneficiario(Beneficiario b) { beneficiarios.add(b); }
@@ -43,6 +43,7 @@ public class DoacaoRepository {
             }
         }
         return resultado;
+    }
 
     //Do ciclo de vida
     public List<ItemDoacao> filtrarPorStatus(StatusItem status) {
@@ -53,6 +54,7 @@ public class DoacaoRepository {
             }
         }
         return resultado;
+    }
 
     //Por id
     public ItemDoacao buscarItemPorId(int id) {
@@ -74,5 +76,5 @@ public class DoacaoRepository {
     }
 }
 
-    public List<ItemDoacao> getListaItens() { return listaItens; }
-}
+
+

@@ -11,7 +11,7 @@ public class ItemDoacao {
     private String descricao;
     private int quantidade;
     private String estadoConservacao;
-    private LocalDate dataCadastro;
+    private final LocalDate dataCadastro;
     private StatusItem status;
 
     
@@ -67,6 +67,10 @@ public class ItemDoacao {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+
+        if(this.quantidade <= 0){
+            this.status = StatusItem.INDISPONIVEL;
+        }
     }
 
     public String getEstadoConservacao() {
