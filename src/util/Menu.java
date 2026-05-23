@@ -9,8 +9,8 @@ import model.Doador;
 import model.ItemDoacao;
 import model.Solicitacao;
 import model.StatusItem;
+import model.StatusSolicitacao;
 import repository.DoacaoRepository;
-import service.SolicitacaoService;
 import service.ValidacaoService;
 
 
@@ -160,9 +160,8 @@ repo.salvarItem(novoItem);
                     break;
                     
 
-                        case 5:
 
-                        case 5:
+                    case 5:
                         System.out.println("\n=== GESTÃO DE SOLICITAÇÕES ===");
                         System.out.println("1 - Criar Nova Solicitação");
                         System.out.println("2 - Registar Desistência (Cancelar Pedido)");
@@ -172,10 +171,11 @@ repo.salvarItem(novoItem);
                         scanner.nextLine();
                         
                         ValidacaoService validacaoService = new ValidacaoService();
-                        SolicitacaoService solicitacaoService = new SolicitacaoService(validacaoService, repo);
+                        service.SolicitacaoService solicitacaoService = new service.SolicitacaoService(validacaoService, repo);
                         
+                        // SUB-OPÇÃO 1: Fluxo normal de criar pedido
                         if (subOpcaoSol == 1) {
-                            System.out.println("Solicitação de Item");
+                            System.out.println("\n=== NOVA SOLICITAÇÃO DE ITEM ===");
                             if(repo.getListaItens().isEmpty()){
                                 System.out.println("Nenhum item disponível.");
                                 break;
@@ -211,24 +211,25 @@ repo.salvarItem(novoItem);
                                 System.out.println("Beneficiário não encontrado.");
                                 break;
                             }
-
+    
                             Solicitacao solicitacao = new Solicitacao(contadorId++, beneficiario, itemSelecionado, quantidadeSolicitada, justificativa);
                             boolean aprovado = solicitacaoService.solicitarItem(solicitacao);
                         
                             if(aprovado){
-                                System.out.println("\n✓ Solicitação aprovada! Quantidade restante: " + itemSelecionado.getQuantidade());
+                                System.out.println(" Solicitação aprovada! Quantidade restante: " + itemSelecionado.getQuantidade());
                             } else {
-                                System.out.println("\n❌ Solicitação rejeitada.");
+                                System.out.println(" Solicitação rejeitada.");
                             }
                         } 
                         
+                        // SUB-OPÇÃO 2: Cancelar/Desistir
                         else if (subOpcaoSol == 2) {
-                            System.out.println("Cancelar Pedido");
+                            System.out.println("=== REGISTAR DESISTÊNCIA ===");
                             if (repo.getListaSolicitacoes().isEmpty()) {
                                 System.out.println("Nenhuma solicitação encontrada no sistema.");
                                 break;
                             }
-
+    
                             boolean existemAtivas = false;
                             for (Solicitacao s : repo.getListaSolicitacoes()) {
                                 if (s.getStatus() == StatusSolicitacao.APROVADA) {
@@ -236,16 +237,16 @@ repo.salvarItem(novoItem);
                                     existemAtivas = true;
                                 }
                             }
-
+    
                             if (!existemAtivas) {
                                 System.out.println("Nenhuma solicitação ativa para cancelamento no momento.");
                                 break;
                             }
-
+    
                             System.out.print("\nInforme o ID da solicitação que deseja cancelar: ");
                             int idSolCancelar = scanner.nextInt();
                             scanner.nextLine();
-
+    
                             Solicitacao solEncontrada = null;
                             for (Solicitacao s : repo.getListaSolicitacoes()) {
                                 if (s.getId() == idSolCancelar) {
@@ -253,104 +254,24 @@ repo.salvarItem(novoItem);
                                     break;
                                 }
                             }
-
+    
                             solicitacaoService.cancelarSolicitacao(solEncontrada);
                         } else {
-                            System.out.println("❌ Opção inválida!");
+                            System.out.println(" Opção inválida!");
                         }
                         break;
-                        }
-                    
-                        System.out.print(
-                            "Informe a quantidade solicitada: "
-                        );
-                    
-                        int quantidadeSolicitada =
-                            scanner.nextInt();
-                    
-                        scanner.nextLine();
-                    
-                        System.out.print(
-                            "Informe a justificativa: "
-                        );
-                    
-                        String justificativa =
-                            scanner.nextLine();
-                    
-                           
-                        System.out.print(
-                                "Informe o ID do beneficiário: "
-                            );
-                            
-                            int idBeneficiario =
-                                scanner.nextInt();
-                            
-                            scanner.nextLine();
-                            
-                            Beneficiario beneficiario =
-                                repo.buscarBeneficiarioPorId(
-                                    idBeneficiario
-                                );
-                            
-                            if(beneficiario == null){
-                            
-                                System.out.println(
-                                    "Beneficiário não encontrado."
-                                );
-                            
-                                break;
-                            }
-
-
-                            Solicitacao solicitacao =
-                            new Solicitacao(
-                                contadorId++,
-                                beneficiario,
-                                itemSelecionado,
-                                quantidadeSolicitada,
-                                justificativa
-                            );
-                    
-                        boolean aprovado =
-                            solicitacaoService.solicitarItem(
-                                solicitacao
-                            );
-                    
-                        if(aprovado){
-                    
-                            System.out.println(
-                                "\n✓ Solicitação aprovada!"
-                            );
-                    
-                            System.out.println(
-                                "Doação concluída com sucesso."
-                            );
-                    
-                            System.out.println(
-                                "Quantidade restante: "
-                                + itemSelecionado.getQuantidade()
-                            );
-                    
-                        } else {
-                    
-                            System.out.println(
-                                "\nX Solicitação rejeitada."
-                            );
-                        }
-                    
-                        break;
-
-                case 0:
+    
+                    case 0:
                         System.out.println("Saindo do sistema");
                         break;
-
-                        default:
-                            System.out.println("Opção inválida!");
-
-                }         
-        } while (opcao != 0);
-
-        scanner.close();
-    }
-   
-}
+    
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+    
+                } 
+            } while (opcao != 0); 
+    
+            scanner.close();
+        } 
+    } 
