@@ -27,7 +27,7 @@ public class ItemController {
         System.out.print("Quantidade: "); int qtd = Integer.parseInt(scanner.nextLine());
         System.out.print("Estado de Conservação: "); String estado = scanner.nextLine();
 
-        ItemDoacao novoItem = new ItemDoacao(GeradorIds.gerarIdDoador(), nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL);
+        ItemDoacao novoItem = new ItemDoacao(GeradorIds.gerarIdItem(), nome, cat, desc, qtd, estado, LocalDate.now(), StatusItem.DISPONIVEL);
         repo.salvarItem(novoItem);
         System.out.println("Item cadastrado com sucesso e disponível na rede!");
     }
