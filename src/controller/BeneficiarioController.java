@@ -38,7 +38,7 @@ public class BeneficiarioController {
         int prioridade = lerNumero();
 
         
-        Beneficiario novoBeneficiario = new Beneficiario(GeradorIds.gerarIdDoador(), nome, tel, email, end, tipo, prioridade);
+        Beneficiario novoBeneficiario = new Beneficiario(GeradorIds.gerarIdBeneficiario(), nome, tel, email, end, tipo, prioridade);
         repo.salvarBeneficiario(novoBeneficiario);
         
         System.out.println("Beneficiário cadastrado com sucesso!");
