@@ -10,54 +10,36 @@ public class SolicitacaoService {
     private final ValidacaoService validacaoService;
     private final DoacaoRepository repository;
 
-    public SolicitacaoService(
-            ValidacaoService validacaoService,
-            DoacaoRepository repository){
-
+    public SolicitacaoService(ValidacaoService validacaoService, DoacaoRepository repository){
         this.validacaoService = validacaoService;
         this.repository = repository;
     }
 
-    public boolean solicitarItem(
-            Solicitacao solicitacao){
+    public boolean solicitarItem(Solicitacao solicitacao){
 
-        ItemDoacao item =
-            solicitacao.getItem();
-
-        int quantidade =
-            solicitacao.getQuantidade();
-
-        boolean valido =
-            validacaoService
-                .validarDisponibilidade(
-                    item,
-                    quantidade
-                );
+        ItemDoacao item = solicitacao.getItem();
+        int quantidade = solicitacao.getQuantidade();
+        boolean valido = validacaoService.validarDisponibilidade(item, quantidade);
 
         if(valido){
+            
+           // Caso o beneficiário compre tudo, vira "reservado" e não indisponível.
+            if (item.getQuantidade() == quantidade) {
+                item.reservar(); 
+            }
 
-            item.setQuantidade(
-                item.getQuantidade() - quantidade
-            );
+            // Depois de verificar se reserva, deduzir estoque
+            item.setQuantidade(item.getQuantidade() - quantidade);
 
-            solicitacao.setStatus(
-                StatusSolicitacao.APROVADA
-            );
-
-            repository.registrarSolicitacao(
-                solicitacao
-            );
+            solicitacao.setStatus(StatusSolicitacao.APROVADA);
+            repository.registrarSolicitacao(solicitacao);
 
             return true;
         }
 
-        solicitacao.setStatus(
-            StatusSolicitacao.REJEITADA
-        );
-
-        repository.registrarSolicitacao(
-            solicitacao
-        );
+        // Se o ValidacaoService disser que não dá, a solicitação é rejeitada
+        solicitacao.setStatus(StatusSolicitacao.REJEITADA);
+        repository.registrarSolicitacao(solicitacao);
 
         return false;
     }
