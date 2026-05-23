@@ -4,5 +4,6 @@ public enum StatusSolicitacao {
 
     PENDENTE,
     APROVADA,
-    REJEITADA
+    REJEITADA,
+    ENTREGUE
 }
