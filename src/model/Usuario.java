@@ -23,7 +23,7 @@ public class Usuario {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
