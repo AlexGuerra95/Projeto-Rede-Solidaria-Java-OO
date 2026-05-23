@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class ItemDoacao {
 
-    private int id;
+    private String id;
     private String nomeItem;
     private String categoria;
     private String descricao;
