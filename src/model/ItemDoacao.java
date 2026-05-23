@@ -84,6 +84,7 @@ public class ItemDoacao {
         return dataCadastro;
     }
 
+
     public StatusItem getStatus() {
         return status;
     }

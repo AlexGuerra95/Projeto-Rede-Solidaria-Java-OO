@@ -9,6 +9,7 @@ import model.Doador;
 import model.ItemDoacao;
 import model.Solicitacao;
 import model.StatusItem;
+import model.StatusSolicitacao;
 
 public class DoacaoRepository {
     public List<Doador> doadores = new ArrayList<>();

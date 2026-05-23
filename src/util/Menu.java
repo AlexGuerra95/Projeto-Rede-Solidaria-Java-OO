@@ -25,10 +25,10 @@ public class Menu {
 
         do {
                 System.out.println("\n===MENU PRINCIPAL ===");
-                System.out.println("1 - Cadastrar Doador");
-                System.out.println("2 - Cadastrar Beneficiario");
+                System.out.println("1 - Doador");
+                System.out.println("2 - Beneficiario");
                 System.out.println("3 - Cadastrar Item");
-                System.out.println("4 - Listar Itens Disponíveis");
+                System.out.println("4 - Consultar Itens");
                 System.out.println("5 - Gestão de Solicitações");
                 System.out.println("0 - Sair");        
                 System.out.print("Escolha uma opção: ");
@@ -38,26 +38,53 @@ public class Menu {
 
                 switch(opcao){
                     case 1:
+                    System.out.println("Opções do Doador");
+                    System.out.println("1 - Cadastrar Doador");
+                    System.out.println("2 - Consultar Doador");
+                    System.out.print("Escolha uma opção: ");
                     
-                        System.out.print("Informe seu Nome: ");
-                        String nome = scanner.nextLine();
-                        
-                        System.out.print("Informe seu Telefone: ");
-                        String telefone = scanner.nextLine();
-                        
-                        System.out.print("Informe seu Email: ");
-                        String email = scanner.nextLine();
-                        
-                        System.out.print("Informe seu Endereço: ");
-                        String endereco = scanner.nextLine();
+                    int subOpcaoDoador = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    switch (subOpcaoDoador) {
+                        case 1:
+                            System.out.print("Informe seu Nome: ");
+                            String nome = scanner.nextLine();
+                            
+                            System.out.print("Informe seu Telefone: ");
+                            String telefone = scanner.nextLine();
+                            
+                            System.out.print("Informe seu Email: ");
+                            String email = scanner.nextLine();
+                            
+                            System.out.print("Informe seu Endereço: ");
+                            String endereco = scanner.nextLine();
+    
+                            Doador novoDoador = new Doador(contadorId++, nome, telefone, email, endereco);
+                            repo.salvarDoador(novoDoador);
+                            
+                            System.out.println("Doador cadastrado com sucesso!");
+                            break;
 
-                        Doador novoDoador = new Doador(contadorId++, nome, telefone, email, endereco);
-                        repo.salvarDoador(novoDoador);
-                        
-                        System.out.println("\n Doador cadastrado com sucesso!");
-                        break;      
-
-                        
+                        case 2:
+                            System.out.println("Listar Doadores");
+                            java.util.List<Doador> doadoresCadastrados = repo.getListaDoadores(); 
+                            if (doadoresCadastrados == null || doadoresCadastrados.isEmpty()) {
+                            System.out.println("Nenhum doador cadastrado.");
+                            } 
+                            else {
+                                for (Doador d : doadoresCadastrados)
+                                System.out.println("ID: " + d.getId() + " | Nome: " + d.getNome() + " | Email: " + d.getEmail());
+                                    
+                                }
+                                break;
+    
+                            default:
+                                System.out.println(" Opção inválida no menu de doadores!");
+                                break;
+                        }
+                        break; 
+                    
                     case 2:               
                        
                         System.out.print("Informe seu Nome: ");
@@ -162,9 +189,9 @@ repo.salvarItem(novoItem);
 
 
                     case 5:
-                        System.out.println("\n=== GESTÃO DE SOLICITAÇÕES ===");
+                        System.out.println("Gestão De Solicitações");
                         System.out.println("1 - Criar Nova Solicitação");
-                        System.out.println("2 - Registar Desistência (Cancelar Pedido)");
+                        System.out.println("2 - Cancelar Pedido");
                         System.out.print("Escolha uma opção: ");
                         
                         int subOpcaoSol = scanner.nextInt();
@@ -175,7 +202,7 @@ repo.salvarItem(novoItem);
                         
                         // SUB-OPÇÃO 1: Fluxo normal de criar pedido
                         if (subOpcaoSol == 1) {
-                            System.out.println("\n=== NOVA SOLICITAÇÃO DE ITEM ===");
+                            System.out.println("Nova Solicitação De Item");
                             if(repo.getListaItens().isEmpty()){
                                 System.out.println("Nenhum item disponível.");
                                 break;
@@ -224,7 +251,7 @@ repo.salvarItem(novoItem);
                         
                         // SUB-OPÇÃO 2: Cancelar/Desistir
                         else if (subOpcaoSol == 2) {
-                            System.out.println("=== REGISTAR DESISTÊNCIA ===");
+                            System.out.println(" Cancelar Pedido");
                             if (repo.getListaSolicitacoes().isEmpty()) {
                                 System.out.println("Nenhuma solicitação encontrada no sistema.");
                                 break;
@@ -243,7 +270,7 @@ repo.salvarItem(novoItem);
                                 break;
                             }
     
-                            System.out.print("\nInforme o ID da solicitação que deseja cancelar: ");
+                            System.out.print("Informe o ID da solicitação que deseja cancelar: ");
                             int idSolCancelar = scanner.nextInt();
                             scanner.nextLine();
     
@@ -271,7 +298,7 @@ repo.salvarItem(novoItem);
     
                 } 
             } while (opcao != 0); 
-    
+        
             scanner.close();
         } 
-    } 
+    }
