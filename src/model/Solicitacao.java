@@ -2,14 +2,14 @@ package model;
 
 public class Solicitacao {
 
-    public string id;
+    public String id;
     public Beneficiario beneficiario;
     public ItemDoacao item;
     public int quantSolicitada;
     public String justificativa;
     public StatusSolicitacao status;
 
-    public Solicitacao(int id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa){
+    public Solicitacao(String id, Beneficiario beneficiario, ItemDoacao item, int quantSolicitada, String justificativa){
         this.id = id;
         this.beneficiario = beneficiario;
         this.item = item;
@@ -19,11 +19,11 @@ public class Solicitacao {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
