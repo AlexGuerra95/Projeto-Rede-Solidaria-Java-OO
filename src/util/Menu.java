@@ -116,17 +116,48 @@ repo.salvarItem(novoItem);
                         break;     
 
                 case 4:
-                        System.out.println("\n Itens Disponíveis: ");
-                        if (repo.getListaItens().isEmpty()) {
-                            System.out.println("Nenhum item cadastrado no momento.");
+                    System.out.println("CONSULTAR ITENS");
+                    System.out.println("1 - Apenas Itens Disponíveis");
+                    System.out.println("2 - Apenas Itens Reservados");
+                    System.out.println("3 - Todos os Itens Cadastrados");
+                    System.out.print("Escolha o tipo de listagem: ");
+                    
+                    int subOpcao = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    java.util.List<ItemDoacao> itensFiltrados = null;
+                    
+                    switch (subOpcao) {
+                        case 1:
+                            System.out.println("Exibindo Itens Disponíveis");
+                            // Usa seu método de filtro com o Enum da Sabryna
+                            itensFiltrados = repo.filtrarPorStatus(StatusItem.DISPONIVEL);
+                            break;
+                        case 2:
+                            System.out.println("Exibindo Itens Reservados");
+                            itensFiltrados = repo.filtrarPorStatus(StatusItem.RESERVADO);
+                            break;
+                        case 3:
+                            System.out.println("Exibindo Todos os Itens");
+                            // Puxa a lista global completa do repositório
+                            itensFiltrados = repo.getListaItens();
+                            break;
+                        default:
+                            System.out.println("X Opção de filtro inválida!");
+                            break;
+                    }
+                    
+                    // Faz a listagem de acordo com a escolha.
+                    if (itensFiltrados != null) {
+                        if (itensFiltrados.isEmpty()) {
+                            System.out.println("Nenhum item encontrado para o filtro selecionado.");
                         } else {
-                            for (ItemDoacao item : repo.getListaItens()) {
+                            for (ItemDoacao item : itensFiltrados) {
                                 item.exibirDadosItem();
                             }
                         }
-            
-
-                        break;
+                    }
+                    break;
                     
 
                         case 5:
