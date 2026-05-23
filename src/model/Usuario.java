@@ -3,7 +3,7 @@ package model;
 
 public class Usuario {
 
-    private int id;
+    private String id;
     private String nome;
     private String telefone;
     private String email;
