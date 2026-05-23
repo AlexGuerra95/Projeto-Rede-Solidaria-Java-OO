@@ -22,14 +22,14 @@ public class DoacaoRepository {
     public void salvarDoador(Doador d) { doadores.add(d); }
     public void salvarBeneficiario(Beneficiario b) { beneficiarios.add(b); }
     public void salvarItem(ItemDoacao i) { listaItens.add(i); }
-    public void registrarSolicitacao(Solicitacao s) { listaSolicitacoes.add(s); }
+    public void salvarSolicitacao(Solicitacao s) { listaSolicitacoes.add(s); }
     public void salvarDoacaoEfetivada(DoacaoEfetivada de) {listaDoacaoesEfetivadas.add(de);}
 
     // Dados Iniciais (Seed)
     public void carregarDadosIniciais() {
-        listaItens.add(new ItemDoacao(1, "Cesta Básica", "Alimentos", "Arroz, feijão e itens básicos", 10, "Novo", LocalDate.now(), StatusItem.DISPONIVEL));
-        listaItens.add(new ItemDoacao(2, "Mesa de Escritório", "Móveis", "Madeira, 1.20m", 1, "Bom estado", LocalDate.now(), StatusItem.DISPONIVEL));
-        listaItens.add(new ItemDoacao(3, "Kit Escolar", "Educação", "Mochila e cadernos", 15, "Novo", LocalDate.now(), StatusItem.DISPONIVEL));
+        listaItens.add(new ItemDoacao(GeradorIds.gerarIdItem(), "Cesta Básica", "Alimentos", "Arroz, feijão e itens básicos", 10, "Novo", LocalDate.now(), StatusItem.DISPONIVEL));
+        listaItens.add(new ItemDoacao(GeradorIds.gerarIdItem(), "Mesa de Escritório", "Móveis", "Madeira, 1.20m", 1, "Bom estado", LocalDate.now(), StatusItem.DISPONIVEL));
+        listaItens.add(new ItemDoacao(GeradorIds.gerarIdItem(), "Kit Escolar", "Educação", "Mochila e cadernos", 15, "Novo", LocalDate.now(), StatusItem.DISPONIVEL));
     }
     public List<ItemDoacao> getListaItens() { return listaItens; }
     public List<Doador> getListaDoadores() { return doadores; }
