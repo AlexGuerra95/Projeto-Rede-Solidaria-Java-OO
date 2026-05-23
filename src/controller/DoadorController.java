@@ -2,14 +2,13 @@ package controller;
 
 import java.util.List;
 import java.util.Scanner;
-
 import model.Doador;
 import repository.DoacaoRepository;
 
 public class DoadorController {
     private final DoacaoRepository repo;
     private final Scanner scanner;
-    private static int contadorId = 1; // Controle de ID local ou global
+    private static int contadorId = 1; 
 
     public DoadorController(DoacaoRepository repo, Scanner scanner) {
         this.repo = repo;

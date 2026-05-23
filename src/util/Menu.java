@@ -12,7 +12,7 @@ public class Menu {
     public static void executarMenu(DoacaoRepository repo) {
         Scanner scanner = new Scanner(System.in);
         
-        // Instancia os controladores especializados compartilhando o mesmo Scanner
+        
         DoadorController doadorCtrl = new DoadorController(repo, scanner);
         BeneficiarioController beneficiarioCtrl = new BeneficiarioController(repo, scanner);
         ItemController itemCtrl = new ItemController(repo, scanner);
@@ -28,9 +28,8 @@ public class Menu {
                 switch (opcao) {
                     case 1 -> menuDoador(scanner, doadorCtrl);
                     case 2 -> menuBeneficiario(scanner, beneficiarioCtrl);
-                    case 3 -> itemCtrl.cadastrarItem();
-                    case 4 -> menuConsultaItens(scanner, itemCtrl);
-                    case 5 -> menuSolicitacoes(scanner, solicitacaoCtrl);
+                    case 3 -> menuItens(scanner, itemCtrl);
+                    case 4 -> menuSolicitacoes(scanner, solicitacaoCtrl); 
                     case 0 -> System.out.println("Encerrando o sistema...");
                     default -> System.out.println("Opção inválida!");
                 }
@@ -42,18 +41,58 @@ public class Menu {
 
     private static void exibirMenuPrincipal() {
         System.out.println("\n=== MENU PRINCIPAL ===");
-        System.out.println("1 - Gerenciar Doador | 2 - Gerenciar Beneficiário | 3 - Cadastrar Item");
-        System.out.println("4 - Consultar Itens | 5 - Gestão de Solicitações | 0 - Sair");
+        System.out.println("1 - Gerenciar Doador");
+        System.out.println("2 - Gerenciar Beneficiário");
+        System.out.println("3 - Gerenciar Itens"); 
+        System.out.println("4 - Gestão de Solicitações"); 
+        System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
+
+ 
+    private static void menuItens(Scanner sc, ItemController ctrl) {
+        System.out.println("\n--- GERENCIAR ITENS ---");
+        System.out.println("1 - Cadastrar Novo Item");
+        System.out.println("2 - Consultar Itens Cadastrados");
+        System.out.print("Escolha: ");
+        try {
+            int sub = Integer.parseInt(sc.nextLine());
+            if (sub == 1) {
+                ctrl.cadastrarItem();
+            } else if (sub == 2) {
+                menuConsultaFiltros(sc, ctrl); 
+            } else {
+                System.out.println("Opção inválida.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, digite um número válido.");
+        }
+    }
+
+    private static void menuConsultaFiltros(Scanner sc, ItemController ctrl) {
+        System.out.println("\nCONSULTAR ITENS");
+        System.out.println("1 - Apenas Disponíveis | 2 - Apenas Reservados | 3 - Todos");
+        System.out.print("Escolha o tipo de listagem: ");
+        try {
+            int filtro = Integer.parseInt(sc.nextLine());
+            ctrl.consultarItensFiltrados(filtro);
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, digite um número válido.");
+        }
+    }
+
 
     private static void menuDoador(Scanner sc, DoadorController ctrl) {
         System.out.println("\nOpções do Doador:\n1 - Cadastrar Doador | 2 - Consultar Doadores");
         System.out.print("Escolha: ");
-        int sub = Integer.parseInt(sc.nextLine());
-        if (sub == 1) ctrl.cadastrarDoador();
-        else if (sub == 2) ctrl.consultarDoadores();
-        else System.out.println("Opção inválida.");
+        try {
+            int sub = Integer.parseInt(sc.nextLine());
+            if (sub == 1) ctrl.cadastrarDoador();
+            else if (sub == 2) ctrl.consultarDoadores();
+            else System.out.println("Opção inválida.");
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, digite um número válido.");
+        }
     }
 
     private static void menuBeneficiario(Scanner sc, BeneficiarioController ctrl) {
@@ -70,26 +109,26 @@ public class Menu {
         }
     }
 
-    private static void menuConsultaItens(Scanner sc, ItemController ctrl) {
-        System.out.println("\nCONSULTAR ITENS\n1 - Apenas Disponíveis | 2 - Apenas Reservados | 3 - Todos");
-        System.out.print("Escolha o tipo de listagem: ");
-        int filtro = Integer.parseInt(sc.nextLine());
-        ctrl.consultarItensFiltrados(filtro);
-    }
-
     private static void menuSolicitacoes(Scanner sc, SolicitacaoController ctrl) {
-        System.out.println("\nGestão De Solicitações:");
+        System.out.println("\n--- GESTÃO DE SOLICITAÇÕES ---");
         System.out.println("1 - Criar Nova Solicitação");
-        System.out.println("2 - Cancelar Pedido");
+        System.out.println("2 - Consultar Solicitações");
+        System.out.println("3 - Cancelar Pedido");
         System.out.print("Escolha: ");
         
         try {
             int sub = Integer.parseInt(sc.nextLine());
-            if (sub == 1) ctrl.criarSolicitacao();
-            else if (sub == 2) ctrl.cancelarSolicitacao();
-            else System.out.println("Opção inválida.");
+            if (sub == 1) {
+                ctrl.criarSolicitacao();
+            } else if (sub == 2) {
+                ctrl.consultarSolicitacoes(); 
+            } else if (sub == 3) {
+                ctrl.cancelarSolicitacao(); 
+            } else {
+                System.out.println("Opção inválida.");
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Por favor, digite um número.");
+            System.out.println("Por favor, digite um número válido.");
         }
     }
 }

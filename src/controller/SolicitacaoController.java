@@ -20,7 +20,6 @@ public class SolicitacaoController {
         this.repo = repo;
         this.scanner = scanner;
         
-        // Inicializa o serviço de solicitação injetando as dependências necessárias
         ValidacaoService validacaoService = new ValidacaoService();
         this.solicitacaoService = new SolicitacaoService(validacaoService, repo);
     }
@@ -28,19 +27,19 @@ public class SolicitacaoController {
     public void criarSolicitacao() {
         System.out.println("\n--- NOVA SOLICITAÇÃO DE ITEM ---");
         
-        // 1. Verifica se há itens no sistema
+        
         if (repo.getListaItens().isEmpty()) {
             System.out.println("Nenhum item cadastrado no sistema.");
             return;
         }
 
-        // 2. Lista os itens para o usuário escolher
+        
         System.out.println("Itens Disponíveis:");
         repo.getListaItens().forEach(i -> 
             System.out.println("ID: " + i.getId() + " - " + i.getNomeItem() + " | Qtd: " + i.getQuantidade() + " | Status: " + i.getStatus())
         );
 
-        // 3. Busca o Item selecionado
+        
         System.out.print("\nInforme o ID do item desejado: ");
         int idItem = lerNumero();
         ItemDoacao itemSelecionado = repo.buscarItemPorId(idItem);
@@ -50,14 +49,14 @@ public class SolicitacaoController {
             return;
         }
 
-        // 4. Coleta dados da solicitação
+        
         System.out.print("Informe a quantidade solicitada: ");
         int quantidadeSolicitada = lerNumero();
         
         System.out.print("Informe a justificativa do pedido: ");
         String justificativa = scanner.nextLine();
 
-        // 5. Busca o Beneficiário solicitante
+        
         System.out.print("Informe o ID do beneficiário: ");
         int idBeneficiario = lerNumero();
         Beneficiario beneficiario = repo.buscarBeneficiarioPorId(idBeneficiario);
@@ -67,7 +66,7 @@ public class SolicitacaoController {
             return;
         }
 
-        // 6. Cria o objeto e envia para o Service processar
+       
         Solicitacao solicitacao = new Solicitacao(contadorId++, beneficiario, itemSelecionado, quantidadeSolicitada, justificativa);
         boolean aprovado = solicitacaoService.solicitarItem(solicitacao);
 
@@ -86,21 +85,21 @@ public class SolicitacaoController {
             return;
         }
 
-        // Filtra e exibe apenas as solicitações que estão ativas (Aprovadas) para cancelamento
+       
         long totalAtivas = repo.getListaSolicitacoes().stream()
                 .filter(s -> s.getStatus() == StatusSolicitacao.APROVADA)
                 .peek(s -> System.out.println("ID Pedido: " + s.getId() + " | Beneficiário: " + s.getBeneficiario().getNome() + " | Item: " + s.getItem().getNomeItem() + " | Qtd Reservada: " + s.getQuantidade()))
                 .count();
 
         if (totalAtivas == 0) {
-            System.out.println("Nenhuma solicitação ativa elegível para cancelamento no momento.");
+            System.out.println("Nenhuma solicitação ativa disponível para cancelamento no momento.");
             return;
         }
 
         System.out.print("\nInforme o ID da solicitação que deseja cancelar: ");
         int idSolCancelar = lerNumero();
 
-        // Busca a solicitação correspondente e executa o cancelamento via Service
+        
         repo.getListaSolicitacoes().stream()
                 .filter(s -> s.getId() == idSolCancelar)
                 .findFirst()
@@ -110,9 +109,29 @@ public class SolicitacaoController {
                 );
     }
 
-    /**
-     * Método utilitário local para garantir leituras numéricas seguras do teclado
-     */
+        public void consultarSolicitacoes() {
+            System.out.println("\n--- CONSULTAR SOLICITAÇÕES ---");
+            
+            java.util.List<model.Solicitacao> lista = repo.getListaSolicitacoes();
+            
+            if (lista == null || lista.isEmpty()) {
+                System.out.println("Nenhuma solicitação cadastrada no sistema.");
+                return;
+            }
+        
+            System.out.println("Histórico de Pedidos:");
+            for (model.Solicitacao s : lista) {
+                System.out.println(
+                    "ID Pedido: " + s.getId() + 
+                    " | Beneficiário: " + s.getBeneficiario().getNome() + 
+                    " | Item: " + s.getItem().getNomeItem() + 
+                    " | Qtd: " + s.getQuantidade() + 
+                    " | Status: " + s.getStatus()
+                );
+            }
+        }
+
+
     private int lerNumero() {
         while (true) {
             try {

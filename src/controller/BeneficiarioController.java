@@ -35,7 +35,7 @@ public class BeneficiarioController {
         System.out.print("Nível de Prioridade (Digite um número inteiro): "); 
         int prioridade = lerNumero();
 
-        // Agora com todos os 7 parâmetros preenchidos corretamente:
+        
         Beneficiario novoBeneficiario = new Beneficiario(contadorId++, nome, tel, email, end, tipo, prioridade);
         repo.salvarBeneficiario(novoBeneficiario);
         
@@ -52,9 +52,6 @@ public class BeneficiarioController {
         }
     }
 
-    /**
-     * Método interno para garantir que a prioridade seja digitada apenas como número
-     */
     private int lerNumero() {
         while (true) {
             try {
