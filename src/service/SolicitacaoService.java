@@ -3,6 +3,7 @@ package service;
 import model.ItemDoacao;
 import model.Solicitacao;
 import model.StatusSolicitacao;
+import model.StatusItem;
 import repository.DoacaoRepository;
 
 public class SolicitacaoService {
@@ -19,23 +20,21 @@ public class SolicitacaoService {
         ItemDoacao item = solicitacao.getItem();
         int quantidade = solicitacao.getQuantidade();
         
-        // Passa pela validação
+        // Executa o seu validador
         boolean valido = validacaoService.validarDisponibilidade(item, quantidade);
 
         if(valido){
-            // Deduz do estoque
+            // Deduz do estoque do item pai normalmente
             item.setQuantidade(item.getQuantidade() - quantidade);
 
-            // Se a pessoa zerar o estoque, muda o status geral
+            // Se a solicitação raspou o estoque por completo, o item pai vira RESERVADO
             if (item.getQuantidade() == 0) {
                 item.reservar(); 
             }
 
-            // reserva parcial
+            // Salva o registro da reserva na solicitação
             solicitacao.setStatus(StatusSolicitacao.APROVADA);
             repository.registrarSolicitacao(solicitacao);
-            
-            System.out.println("✓ Pedido aprovado! A quantidade foi separada para o beneficiário.");
             return true;
         }
 
