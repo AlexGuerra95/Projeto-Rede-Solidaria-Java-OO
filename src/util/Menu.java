@@ -110,26 +110,42 @@ public class Menu {
         }
     }
 
-    private static void menuSolicitacoes(Scanner sc, SolicitacaoController ctrl) {
-        System.out.println("\n--- GESTÃO DE SOLICITAÇÕES ---");
-        System.out.println("1 - Criar Nova Solicitação");
-        System.out.println("2 - Consultar Solicitações");
-        System.out.println("3 - Consultar Doações Efetivadas");
-        System.out.println("4 - Cancelar Pedido");
-        System.out.print("Escolha: ");
-        
-        try {
-            int sub = Integer.parseInt(sc.nextLine());
-            switch (sub) {
-                case 1 -> ctrl.criarSolicitacao();
-                case 2 -> ctrl.efetivarSolicitacao();
-                case 3 -> ctrl.consultarSolicitacoes(); 
-                case 4 -> ctrl.consultarDoacoesEfetivadas();
-                case 5 -> ctrl.cancelarSolicitacao();
-                default -> System.out.println("Opção inválida.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Por favor, digite um número.");
-        }   
+   private static void menuSolicitacoes(Scanner sc, SolicitacaoController ctrl) {
+    System.out.println("\n--- GESTÃO DE SOLICITAÇÕES ---");
+    System.out.println("1 - Criar Nova Solicitação");
+    System.out.println("2 - Efetivar / Entregar Solicitação"); // ← agora aparece
+    System.out.println("3 - Consultar Solicitações");
+    System.out.println("4 - Consultar Doações Efetivadas");
+    System.out.println("5 - Cancelar Pedido");
+    System.out.print("Escolha: ");
+
+    try {
+        int sub = Integer.parseInt(sc.nextLine());
+        switch (sub) {
+            case 1 -> ctrl.criarSolicitacao();
+            case 2 -> ctrl.efetivarSolicitacao();
+            case 3 -> menuConsultaSolicitacoes(sc, ctrl);
+            case 4 -> ctrl.consultarDoacoesEfetivadas();
+            case 5 -> ctrl.cancelarSolicitacao();
+            default -> System.out.println("Opção inválida.");
+        }
+    } catch (NumberFormatException e) {
+        System.out.println("Por favor, digite um número.");
+    }
+}
+
+private static void menuConsultaSolicitacoes(Scanner sc, SolicitacaoController ctrl) {
+    System.out.println("\nCONSULTAR SOLICITAÇÕES");
+    System.out.println("1 - Todas");
+    System.out.println("2 - Apenas Aprovadas");
+    System.out.println("3 - Apenas Pendentes");
+    System.out.println("4 - Entregues / Rejeitadas");
+    System.out.print("Escolha o tipo de listagem: ");
+
+    try {
+        int filtro = Integer.parseInt(sc.nextLine());
+        ctrl.consultarSolicitacoesFiltradas(filtro);
+    } catch (NumberFormatException e) {
+        System.out.println("Por favor, digite um número válido.");
     }
 }
