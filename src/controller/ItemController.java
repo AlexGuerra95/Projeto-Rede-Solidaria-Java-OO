@@ -84,6 +84,26 @@ public class ItemController {
         }
     }
 
+    public void consultarItensPorCategoria() {
+    try {
+        System.out.print("Digite a categoria desejada: ");
+        String categoria = scanner.nextLine().trim();
+        if (categoria.isEmpty()) throw new IllegalArgumentException("Categoria não pode ser vazia.");
+
+        List<ItemDoacao> filtrados = repo.filtrarPorCategoria(categoria);
+
+        if (filtrados.isEmpty()) {
+            System.out.println("Nenhum item encontrado para a categoria: " + categoria);
+        } else {
+            for (ItemDoacao item : filtrados) {
+                item.exibirDadosItem();
+            }
+        }
+    } catch (IllegalArgumentException e) {
+        System.out.println("Erro na consulta: " + e.getMessage());
+    }
+}
+
     private int lerNumero() {
         while (true) {
             try {
