@@ -149,6 +149,11 @@ public class SolicitacaoController {
             if (doador == null) throw new IllegalArgumentException("Doador não encontrado com ID: " + idDoador);
 
             sol.setStatus(StatusSolicitacao.ENTREGUE);
+
+            // Garante a transição correta do item: DISPONIVEL → RESERVADO → ENTREGUE
+            if (sol.getItem().getStatus() == StatusItem.DISPONIVEL) {
+                sol.getItem().reservar();
+            }
             sol.getItem().entregar();
 
             DoacaoEfetivada efetivada = new DoacaoEfetivada(
