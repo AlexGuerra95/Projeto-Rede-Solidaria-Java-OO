@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import model.Beneficiario;
 import model.DoacaoEfetivada;
 import model.Doador;
@@ -39,7 +40,7 @@ public class SolicitacaoController {
             );
 
             System.out.print("\nInforme o ID do beneficiário: ");
-            String idBeneficiario = scanner.nextLine().trim();
+            String idBeneficiario = formatarId("BEN", scanner.nextLine());
             if (idBeneficiario.isEmpty()) throw new IllegalArgumentException("ID do beneficiário não pode ser vazio.");
 
             Beneficiario beneficiario = repo.buscarBeneficiarioPorId(idBeneficiario);
@@ -66,12 +67,12 @@ public class SolicitacaoController {
             }
 
             System.out.print("\nInforme o ID do item desejado: ");
-            String idItem = scanner.nextLine().trim();
+            String idItem = formatarId("ITE", scanner.nextLine());
             if (idItem.isEmpty()) throw new IllegalArgumentException("ID do item não pode ser vazio.");
 
             ItemDoacao itemSelecionado = null;
             for (ItemDoacao item : disponiveis) {
-                if (item.getId().equals(idItem)) {
+                if (item.getId().equalsIgnoreCase(idItem)) {
                     itemSelecionado = item;
                     break;
                 }
@@ -124,7 +125,7 @@ public class SolicitacaoController {
             }
 
             System.out.print("\nDigite o ID do pedido que deseja efetivar: ");
-            String idPedido = scanner.nextLine().trim();
+            String idPedido = formatarId("SOL", scanner.nextLine());
             if (idPedido.isEmpty()) throw new IllegalArgumentException("ID do pedido não pode ser vazio.");
 
             Solicitacao sol = null;
@@ -142,7 +143,7 @@ public class SolicitacaoController {
             );
 
             System.out.print("\nInforme o ID do doador deste item: ");
-            String idDoador = scanner.nextLine().trim();
+            String idDoador = formatarId("DOA", scanner.nextLine());
             if (idDoador.isEmpty()) throw new IllegalArgumentException("ID do doador não pode ser vazio.");
 
             Doador doador = repo.buscarDoadorPorId(idDoador);
@@ -197,7 +198,7 @@ public class SolicitacaoController {
             }
 
             System.out.print("\nInforme o ID da solicitação: ");
-            String idSolCancelar = scanner.nextLine().trim();
+            String idSolCancelar = formatarId("SOL", scanner.nextLine());
             if (idSolCancelar.isEmpty()) throw new IllegalArgumentException("ID da solicitação não pode ser vazio.");
 
             Solicitacao solSelected = null;
@@ -320,4 +321,22 @@ public class SolicitacaoController {
             }
         }
     }
+
+    private String formatarId(String prefixo, String entrada) {
+
+        entrada = entrada.trim().toUpperCase();
+    
+        // Se digitou apenas número
+        if (!entrada.startsWith(prefixo + "-")) {
+            int numero = Integer.parseInt(entrada);
+            return String.format(prefixo + "-%03d", numero);
+        }
+    
+        return entrada;
+    }
+
+
+
+
+
 }
