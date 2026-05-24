@@ -15,7 +15,7 @@ public class Solicitacao {
         this.item = item;
         this.quantSolicitada = quantSolicitada;
         this.justificativa = justificativa;
-        this.status = StatusSolicitacao.APROVADA;
+        this.status = null; // status definido pelo SolicitacaoService após validação
     }
 
     public String getId() {
