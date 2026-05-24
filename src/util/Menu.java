@@ -81,11 +81,18 @@ public class Menu {
 
     private static void menuConsultaFiltros(Scanner sc, ItemController ctrl) {
         System.out.println("\nCONSULTAR ITENS");
-        System.out.println("1 - Apenas Disponíveis | 2 - Apenas Reservados | 3 - Todos");
+        System.out.println("1 - Apenas Disponíveis");
+        System.out.println("2 - Apenas Reservados");
+        System.out.println("3 - Filtrar por Categoria");
+        System.out.println("4 - Todos");
         System.out.print("Escolha o tipo de listagem: ");
         try {
             int filtro = Integer.parseInt(sc.nextLine());
-            ctrl.consultarItensFiltrados(filtro);
+            if (filtro == 3) {
+                ctrl.consultarItensPorCategoria();
+            } else {
+                ctrl.consultarItensFiltrados(filtro == 4 ? 3 : filtro);
+            }
         } catch (NumberFormatException e) {
             System.out.println("Por favor, digite um número válido.");
         }
