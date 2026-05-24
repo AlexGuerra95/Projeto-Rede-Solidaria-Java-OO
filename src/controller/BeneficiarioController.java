@@ -56,11 +56,12 @@ public class BeneficiarioController {
 
     public void consultarBeneficiarios() {
         try {
-            System.out.println("\n--- LISTAR BENEFICIÁRIOS ---");
+            System.out.println("\n--- LISTAR BENEFICIÁRIOS (ordenados por prioridade) ---");
             List<Beneficiario> lista = repo.getListaBeneficiarios();
             if (lista.isEmpty()) {
                 System.out.println("Nenhum beneficiário cadastrado.");
             } else {
+                lista.sort((a, b) -> Integer.compare(a.getNivelPrioridade(), b.getNivelPrioridade()));
                 lista.forEach(b -> System.out.println(
                     "ID: " + b.getId() +
                     " | Nome: " + b.getNome() +
