@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class TesteCicloVida {
     public static void main(String[] args) {
-        System.out.println("=== TESTANDO O CICLO DE VIDA DO ITEM (SABS) ===\n");
+        System.out.println("TESTANDO O CICLO DE VIDA DO ITEM");
 
         //Criando um item novo que ja nasce como disponivel 
         ItemDoacao item = new ItemDoacao(
