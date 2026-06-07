@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import model.Beneficiario;
 import model.DoacaoEfetivada;
 import model.Doador;
@@ -334,8 +333,6 @@ public class SolicitacaoController {
     
         return entrada;
     }
-
-
 
 
 

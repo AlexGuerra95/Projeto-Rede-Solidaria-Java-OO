@@ -1,2 +1,3 @@
 id;itemId;doadorId;beneficiarioId;quantidade;data;observacoes
 DOE-001;ITE-003;DOA-004;BEN-004;10;2026-06-07;Doação entregue com sucesso. Justificativa original: Crianças vão pra escola
+DOE-002;ITE-001;DOA-004;BEN-004;2;2026-06-07;Doação entregue com sucesso. Justificativa original: 2

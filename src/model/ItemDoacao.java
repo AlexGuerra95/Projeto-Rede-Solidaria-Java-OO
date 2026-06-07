@@ -89,10 +89,6 @@ public class ItemDoacao {
         return status;
     }
 
-    private void setStatus(StatusItem status) {
-        this.status = status;
-    }
-
     // Metodos de controle do clico de vida 
     public void reservar() {
         if (this.status == StatusItem.DISPONIVEL) {

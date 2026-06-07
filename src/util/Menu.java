@@ -5,9 +5,9 @@ import java.util.Scanner;
 import controller.BeneficiarioController;
 import controller.DoadorController;
 import controller.ItemController;
+import controller.RelatorioController;
 import controller.SolicitacaoController;
 import repository.DoacaoRepository;
-import util.PersistenciaCSV;
 
 public class Menu {
 
@@ -18,6 +18,7 @@ public class Menu {
         BeneficiarioController beneficiarioCtrl = new BeneficiarioController(repo, scanner);
         ItemController itemCtrl = new ItemController(repo, scanner);
         SolicitacaoController solicitacaoCtrl = new SolicitacaoController(repo, scanner);
+        RelatorioController relatorioCtrl = new RelatorioController(repo);
 
         int opcao = -1;
 
@@ -39,6 +40,9 @@ public class Menu {
                     case 4:
                         menuSolicitacoes(scanner, solicitacaoCtrl);
                         break;
+                    case 5:
+                        menuRelatorios(scanner, relatorioCtrl);
+                        break;
                     case 0:
                         PersistenciaCSV.salvarTudo(repo);
                         System.out.println("Encerrando o sistema...");
@@ -58,6 +62,7 @@ public class Menu {
         System.out.println("2 - Gerenciar Beneficiário");
         System.out.println("3 - Gerenciar Itens");
         System.out.println("4 - Gestão de Solicitações");
+        System.out.println("5 - Relatórios");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -168,4 +173,31 @@ public class Menu {
             System.out.println("Por favor, digite um número válido.");
         }
     }
+
+    private static void menuRelatorios(Scanner sc,RelatorioController ctrl) {
+        System.out.println("\n--- RELATÓRIOS ---");
+        System.out.println("1 - Resumo Geral");
+        System.out.println("2 - Exportar CSV");
+        System.out.print("Escolha: ");
+        try {
+
+            int opcao = Integer.parseInt(sc.nextLine());
+            switch(opcao) {
+                case 1:
+                    ctrl.exibirResumoGeral();
+                    break;
+                case 2:
+                    ctrl.exportarCSV();
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+
+        } catch(NumberFormatException e) {
+
+            System.out.println("Digite apenas números.");
+        }
+    }
+
+
 }

@@ -2,7 +2,6 @@ package model;
 
 public class Beneficiario extends Usuario {
 
-    private String id;
     private String tipoBeneficiario;
     private int nivelPrioridade;
 
