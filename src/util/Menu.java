@@ -7,6 +7,7 @@ import controller.DoadorController;
 import controller.ItemController;
 import controller.SolicitacaoController;
 import repository.DoacaoRepository;
+import util.PersistenciaCSV;
 
 public class Menu {
 
@@ -39,6 +40,7 @@ public class Menu {
                         menuSolicitacoes(scanner, solicitacaoCtrl);
                         break;
                     case 0:
+                        PersistenciaCSV.salvarTudo(repo);
                         System.out.println("Encerrando o sistema...");
                         break;
                     default:
@@ -81,18 +83,11 @@ public class Menu {
 
     private static void menuConsultaFiltros(Scanner sc, ItemController ctrl) {
         System.out.println("\nCONSULTAR ITENS");
-        System.out.println("1 - Apenas Disponíveis");
-        System.out.println("2 - Apenas Reservados");
-        System.out.println("3 - Filtrar por Categoria");
-        System.out.println("4 - Todos");
+        System.out.println("1 - Apenas Disponíveis | 2 - Apenas Reservados | 3 - Todos");
         System.out.print("Escolha o tipo de listagem: ");
         try {
             int filtro = Integer.parseInt(sc.nextLine());
-            if (filtro == 3) {
-                ctrl.consultarItensPorCategoria();
-            } else {
-                ctrl.consultarItensFiltrados(filtro == 4 ? 3 : filtro);
-            }
+            ctrl.consultarItensFiltrados(filtro);
         } catch (NumberFormatException e) {
             System.out.println("Por favor, digite um número válido.");
         }

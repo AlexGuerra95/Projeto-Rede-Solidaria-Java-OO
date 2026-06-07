@@ -27,4 +27,27 @@ public class GeradorIds {
     public static String gerarIdDoacao() {
         return String.format("DOE-%03d", contadorDoacao++);
     }
+
+    // ─── Métodos chamados pela PersistenciaCSV ao carregar dados salvos ───────
+    // Garante que os contadores não repitam IDs já existentes nos arquivos CSV
+
+    public static void atualizarContadorDoador(int numero) {
+        if (numero >= contadorDoador) contadorDoador = numero + 1;
+    }
+
+    public static void atualizarContadorBeneficiario(int numero) {
+        if (numero >= contadorBeneficiario) contadorBeneficiario = numero + 1;
+    }
+
+    public static void atualizarContadorItem(int numero) {
+        if (numero >= contadorItem) contadorItem = numero + 1;
+    }
+
+    public static void atualizarContadorSolicitacao(int numero) {
+        if (numero >= contadorSolicitacao) contadorSolicitacao = numero + 1;
+    }
+
+    public static void atualizarContadorDoacao(int numero) {
+        if (numero >= contadorDoacao) contadorDoacao = numero + 1;
+    }
 }

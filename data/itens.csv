@@ -1,0 +1,4 @@
+id;nomeItem;categoria;descricao;quantidade;estadoConservacao;dataCadastro;status
+ITE-001;Cesta Básica;Alimentos;Arroz, feijão e itens básicos;10;Novo;2026-06-07;DISPONIVEL
+ITE-002;Mesa de Escritório;Móveis;Madeira, 1.20m;1;Bom estado;2026-06-07;DISPONIVEL
+ITE-003;Kit Escolar;Educação;Mochila e cadernos;5;Novo;2026-06-07;ENTREGUE
