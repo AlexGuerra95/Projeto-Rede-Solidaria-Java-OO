@@ -209,7 +209,6 @@ public class PersistenciaCSV {
 
     // ─── AUXILIARES ──────────────────────────────────────────────────────────
 
-    // Após carregar, ajusta os contadores do GeradorIds para não repetir IDs
     private static void ajustarContadores(DoacaoRepository repo) {
         for (Doador d      : repo.getListaDoadores())          GeradorIds.atualizarContadorDoador(extrairNumero(d.getId()));
         for (Beneficiario b: repo.getListaBeneficiarios())     GeradorIds.atualizarContadorBeneficiario(extrairNumero(b.getId()));
@@ -218,7 +217,6 @@ public class PersistenciaCSV {
         for (DoacaoEfetivada de : repo.getListaDoacoesEfetivadas()) GeradorIds.atualizarContadorDoacao(extrairNumero(de.getId()));
     }
 
-    // Extrai o número de um ID no formato "XXX-001" → 1
     private static int extrairNumero(String id) {
         try {
             return Integer.parseInt(id.split("-")[1]);
