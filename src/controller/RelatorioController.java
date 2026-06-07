@@ -15,7 +15,19 @@ public class RelatorioController {
         service.gerarResumoGeral();
     }
 
-    public void exportarCSV() {
-        service.exportarCSV();
+    public void exportarDoaçõesEfetivadas() {
+        service.exportarDoaçõesEfetivadasCSV();
+    }
+
+    public void exportarSolicitacoesCanceladas(){
+        service.exportarSolicitacoesCanceladasCSV();
+    }
+
+    public void exportarResumoGeral(){
+        service.exportarResumoGeralCSV();
+    }
+
+    public void exportarRankingBeneficiarios(){
+        service.exportarRankingBeneficiariosCSV();
     }
 }

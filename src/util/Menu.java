@@ -177,7 +177,10 @@ public class Menu {
     private static void menuRelatorios(Scanner sc,RelatorioController ctrl) {
         System.out.println("\n--- RELATÓRIOS ---");
         System.out.println("1 - Resumo Geral");
-        System.out.println("2 - Exportar CSV");
+        System.out.println("2 - Exportar Doações Efetuadas");
+        System.out.println("3 - Exportar Solicitações Canceladas");
+        System.out.println("4 - Exportar Resumo Geral");
+        System.out.println("5 - Exportar Ranking Beneficiarios");
         System.out.print("Escolha: ");
         try {
 
@@ -187,7 +190,16 @@ public class Menu {
                     ctrl.exibirResumoGeral();
                     break;
                 case 2:
-                    ctrl.exportarCSV();
+                    ctrl.exportarDoaçõesEfetivadas();
+                    break;
+                case 3:
+                    ctrl.exportarSolicitacoesCanceladas();
+                    break;
+                case 4:
+                    ctrl.exportarResumoGeral();
+                    break;
+                case 5:
+                    ctrl.exportarRankingBeneficiarios();
                     break;
                 default:
                     System.out.println("Opção inválida.");
